@@ -17,10 +17,10 @@ document.addEventListener("pjax:success", initScrollReveal);
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1649771368263.png">
 <meta property="og:image" content="http://example.com/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1649771385560.png">
-<meta property="og:image" content="http://example.com/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/f688d936bbe8480dba23dcd898abd143_tplv-k3u1fbpfcp-zoom-in-crop-mark_1304_0_0_0.awebp">
-<meta property="og:image" content="http://example.com/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/87335f86cc194a089781d888dd4b64b2_tplv-k3u1fbpfcp-zoom-in-crop-mark_1304_0_0_0.awebp">
+<meta property="og:image" content="http://example.com/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1649771473131.png">
+<meta property="og:image" content="http://example.com/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1649771493185.png">
 <meta property="article:published_time" content="2022-04-12T13:47:12.000Z">
-<meta property="article:modified_time" content="2022-04-12T13:49:47.831Z">
+<meta property="article:modified_time" content="2022-04-12T13:51:46.556Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -76,7 +76,7 @@ document.addEventListener("pjax:success", initScrollReveal);
 <p>一个线程对象只能调用一次 start()方法启动，如果重复调用了，则将抛出异常“lllegalThreadStateException”.</p>
 <h5 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.继承Thread类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyThread</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.重run方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                System.out.println(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"><span class="comment">//3.新建Thread对象</span></span><br><span class="line">        <span class="type">MyThread</span> <span class="variable">myThread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">        <span class="comment">//4.调用start方法</span></span><br><span class="line">        myThread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p> <img src="/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/f688d936bbe8480dba23dcd898abd143_tplv-k3u1fbpfcp-zoom-in-crop-mark_1304_0_0_0.awebp" alt="image-20200411221700419" loading="lazy"> </p>
+<p><img src="/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1649771473131.png" alt="1649771473131" loading="lazy"></p>
 <h4 id="3-2实现方式二实现Runnable接口"><a href="#3-2实现方式二实现Runnable接口" class="headerlink" title="3.2实现方式二实现Runnable接口"></a>3.2实现方式二实现Runnable接口</h4><ol>
 <li>创建一个实现了Runnable接口的类</li>
 <li>实现类去实现Runnable中的抽象方法：run()</li>
@@ -131,7 +131,7 @@ document.addEventListener("pjax:success", initScrollReveal);
 <p>运行：当就绪的线程被调度并获得CPU资源时，便进入运行状态，run()方法定义了线程的操作和功能</p>
 <p>阻塞：在某种特殊情况下，被人为挂起或执行输入输出操作时，让出CP∪并临时中止自己的执行，进入阻塞状态</p>
 <p>死亡：线程完成了它的全部工作或线程被提前强制性地中止或出现异常导致结束</p>
-<p> <img src="/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/87335f86cc194a089781d888dd4b64b2_tplv-k3u1fbpfcp-zoom-in-crop-mark_1304_0_0_0.awebp" alt="image-20200414132655458" loading="lazy"> </p>
+<p><img src="/2022/04/12/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1649771493185.png" alt="1649771493185" loading="lazy"></p>
 <p><strong>说明：</strong></p>
 <ol>
 <li>生命周期关注两个概念：状态、相应的方法</li>
