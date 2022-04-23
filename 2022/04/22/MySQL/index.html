@@ -27,8 +27,18 @@ document.addEventListener("pjax:success", initScrollReveal);
 <meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232313932303336382e706e67.png">
 <meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232323130323031302e706e67.png">
 <meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232323133343330362e706e67.png">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-31-1%E8%84%8F%E8%AF%BB(%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4)%E5%AE%9E%E4%BE%8B.jpg">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-31-2%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4%E5%AE%9E%E4%BE%8B.jpg">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-32-1%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%AE%9E%E4%BE%8B.jpg">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-33-2%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.jpg">
+<meta property="og:image" content="http://example.com/2022/04/22/MySQL/phantom_read.png">
+<meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373231333532333737372e706e67.png">
+<meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373231343434323638372e706e67.png">
+<meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232303434303435312e706e67.png">
+<meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232303833313834332e706e67.png">
+<meta property="og:image" content="http://example.com/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232313331333831392e706e67.png">
 <meta property="article:published_time" content="2022-04-22T08:38:55.000Z">
-<meta property="article:modified_time" content="2022-04-22T09:54:05.796Z">
+<meta property="article:modified_time" content="2022-04-23T17:19:43.971Z">
 <meta property="article:author" content="翔仔">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -37,7 +47,7 @@ document.addEventListener("pjax:success", initScrollReveal);
   const setting = localStorage.getItem('darken-mode') || 'auto'
   if (setting === 'dark' || (prefersDark && setting !== 'light'))
     document.documentElement.classList.toggle('dark', true)
-})()</script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="翔仔"><img width="96" loading="lazy" src="/images/tx.jpg" alt="翔仔"><span class="site-author-status" title="不想上学">😭</span></a><div class="site-author-name"><a href="/about/">翔仔</a></div><span class="site-name">翔仔的博客</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="我的主页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=910426929&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/YunYouJun" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="985391895@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text">MySQL基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="toc-number">1.2.</span> <span class="toc-text">存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MyISAM%E4%B8%8EInnoDB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.1.</span> <span class="toc-text">MyISAM与InnoDB的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">锁机制与InnoDB锁算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E7%89%A9"><span class="toc-number">1.3.</span> <span class="toc-text">事物</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E7%89%A9%EF%BC%9F"><span class="toc-number">1.3.1.</span> <span class="toc-text">什么是事物？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E7%89%A9"><span class="toc-number">1.3.2.</span> <span class="toc-text">数据库事物</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84ACID"><span class="toc-number">1.3.3.</span> <span class="toc-text">数据库的ACID</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E7%89%A9%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.4.</span> <span class="toc-text">事物实现原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">并发一致性问题</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/MySQL/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="翔仔"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="翔仔的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">MySQL</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-04-22 16:38:55" itemprop="dateCreated datePublished" datetime="2022-04-22T16:38:55+08:00">2022-04-22</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">数据库</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/MySQL/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">MySQL</span></a></span></div><div class="post-author"><span class="author-name">翔仔</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="MySQL基础"><a href="#MySQL基础" class="headerlink" title="MySQL基础"></a>MySQL基础</h2><blockquote>
+})()</script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="翔仔"><img width="96" loading="lazy" src="/images/tx.jpg" alt="翔仔"><span class="site-author-status" title="不想上学">😭</span></a><div class="site-author-name"><a href="/about/">翔仔</a></div><span class="site-name">翔仔的博客</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="我的主页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=910426929&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/YunYouJun" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="985391895@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text">MySQL基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="toc-number">1.2.</span> <span class="toc-text">存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MyISAM%E4%B8%8EInnoDB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.1.</span> <span class="toc-text">MyISAM与InnoDB的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">锁机制与InnoDB锁算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E7%89%A9"><span class="toc-number">1.3.</span> <span class="toc-text">事物</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="toc-number">1.3.1.</span> <span class="toc-text">基本概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E7%89%A9%EF%BC%9F"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">什么是事物？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E7%89%A9"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">数据库事物</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84ACID"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">数据库的ACID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8B%E7%89%A9%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">事物实现原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E7%89%A9%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-number">1.3.2.</span> <span class="toc-text">事物的隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">并发一致性问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">隔离级别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">MySQL默认隔离级别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">设置隔离级别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E6%83%85%E5%86%B5%E6%BC%94%E7%A4%BA"><span class="toc-number">1.3.2.5.</span> <span class="toc-text">实际情况演示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%B8%B8%E8%A7%81%E5%88%86%E7%B1%BB"><span class="toc-number">1.3.3.</span> <span class="toc-text">事务的常见分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E4%BA%8B%E5%8A%A1%E6%97%A5%E5%BF%97"><span class="toc-number">1.3.4.</span> <span class="toc-text">MySQL事务日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#redo%E6%97%A5%E5%BF%97"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">redo日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Undo%E6%97%A5%E5%BF%97"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">Undo日志</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E9%94%81"><span class="toc-number">1.4.</span> <span class="toc-text">封锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">锁类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.4.2.</span> <span class="toc-text">封锁协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E9%9A%90%E5%BC%8F%E4%B8%8E%E6%98%BE%E7%A4%BA%E9%94%81%E5%AE%9A"><span class="toc-number">1.4.3.</span> <span class="toc-text">MySQL隐式与显示锁定</span></a></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/MySQL/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="翔仔"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="翔仔的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">MySQL</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-04-22 16:38:55" itemprop="dateCreated datePublished" datetime="2022-04-22T16:38:55+08:00">2022-04-22</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2022-04-24 01:19:43" itemprop="dateModified" datetime="2022-04-24T01:19:43+08:00">2022-04-24</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">数据库</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/MySQL/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">MySQL</span></a></span></div><div class="post-author"><span class="author-name">翔仔</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="MySQL基础"><a href="#MySQL基础" class="headerlink" title="MySQL基础"></a>MySQL基础</h2><blockquote>
 <p>关系型数据库介绍</p>
 </blockquote>
 <p>MySQL–关系型数据库，即一种建立在关系模型的基础上的数据库，</p>
@@ -101,7 +111,7 @@ document.addEventListener("pjax:success", initScrollReveal);
 <li>Gap lock：间歇锁，锁定一个范围，不包括记录本身</li>
 <li>Next-key lock：record+gap临键锁，锁定一个范围，包括记录本身</li>
 </ul>
-<h2 id="事物"><a href="#事物" class="headerlink" title="事物"></a>事物</h2><h3 id="什么是事物？"><a href="#什么是事物？" class="headerlink" title="什么是事物？"></a>什么是事物？</h3><p>满足ACID特性的一组操作，要么全部成功，要么全部失败，可以通过Commit提交，或Rollback回滚 <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232323233373932352e706e67.png" alt="img" loading="lazy"> </p>
+<h2 id="事物"><a href="#事物" class="headerlink" title="事物"></a>事物</h2><h3 id="基本概述"><a href="#基本概述" class="headerlink" title="基本概述"></a>基本概述</h3><h4 id="什么是事物？"><a href="#什么是事物？" class="headerlink" title="什么是事物？"></a>什么是事物？</h4><p>满足ACID特性的一组操作，要么全部成功，要么全部失败，可以通过Commit提交，或Rollback回滚 <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232323233373932352e706e67.png" alt="img" loading="lazy"> </p>
 <blockquote>
 <p>举个栗子</p>
 </blockquote>
@@ -112,14 +122,14 @@ document.addEventListener("pjax:success", initScrollReveal);
 </ol>
 <p>而事物会把这两个操作再逻辑上看成一个整体，要么全部成功，要么全部失败</p>
 <p>这样因为事物的存在就不会出现小明余额减少而小红余额没变的情况</p>
-<h3 id="数据库事物"><a href="#数据库事物" class="headerlink" title="数据库事物"></a>数据库事物</h3><blockquote>
+<h4 id="数据库事物"><a href="#数据库事物" class="headerlink" title="数据库事物"></a>数据库事物</h4><blockquote>
 <p>数据库事物的作用</p>
 </blockquote>
 <p>数据库的事物可以保证多个对数据库的操作(sql语句)构成一个逻辑上的整体，而这个逻辑上的整体需要遵循：<strong>要么全部成功、要么全部失败</strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 开启一个事物</span><br><span class="line"><span class="keyword">START</span> TRANSACTION;</span><br><span class="line"># 多余的<span class="keyword">sql</span>语句</span><br><span class="line">sql1，sql2...</span><br><span class="line"># 提交事物</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
 
 <p> <img src="/2022/04/22/MySQL/640-20201207160554677.png" alt="img" loading="lazy"> </p>
-<h3 id="数据库的ACID"><a href="#数据库的ACID" class="headerlink" title="数据库的ACID"></a>数据库的ACID</h3><p> <img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7.png" alt="事务的特性" loading="lazy"> </p>
+<h4 id="数据库的ACID"><a href="#数据库的ACID" class="headerlink" title="数据库的ACID"></a>数据库的ACID</h4><p> <img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7.png" alt="事务的特性" loading="lazy"> </p>
 <ol>
 <li><p>原子性(Atomicity)</p>
 <p>事物被视为不可分割的修小单位，事物的所有操作要么全部成功 ，要么全部失败回滚，而回滚可以通过回滚日志(undo log)来实现</p>
@@ -147,12 +157,12 @@ document.addEventListener("pjax:success", initScrollReveal);
 <p> <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373231303433373032332e706e67.png" alt="img" loading="lazy"> </p>
 </li>
 </ul>
-<h3 id="事物实现原理"><a href="#事物实现原理" class="headerlink" title="事物实现原理"></a>事物实现原理</h3><ul>
+<h4 id="事物实现原理"><a href="#事物实现原理" class="headerlink" title="事物实现原理"></a>事物实现原理</h4><ul>
 <li>InnoDB引擎通过使用redo log(重做日志)来保证事物的持久性，使用undo log(回滚日志)保证事物的原子性</li>
 <li>通过锁机制、MVCC来保证事物的隔离性(默认隔离级别可重复读)</li>
 </ul>
 <p>保证了事物的原子性、持久性、隔离性，才能保证一致性</p>
-<h2 id="并发一致性问题"><a href="#并发一致性问题" class="headerlink" title="并发一致性问题"></a>并发一致性问题</h2><p>在并发环境下，事物的隔离性很难保证，因此会出现很多并发一致性问题</p>
+<h3 id="事物的隔离级别"><a href="#事物的隔离级别" class="headerlink" title="事物的隔离级别"></a>事物的隔离级别</h3><h4 id="并发一致性问题"><a href="#并发一致性问题" class="headerlink" title="并发一致性问题"></a>并发一致性问题</h4><p>在并发环境下，事物的隔离性很难保证，因此会出现很多并发一致性问题</p>
 <p><strong>丢失修改</strong></p>
 <p>丢失修改是指一个事物的更新操作被另一个事物更新操作替换。例如：T1和T2两个事物对一个数据修改，T1先修改并提交生效，T2随后修改，T2的修改覆盖了T1的修改 <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232313734343234342e706e67.png" alt="img" loading="lazy"> </p>
 <p><strong>读脏数据</strong></p>
@@ -160,13 +170,212 @@ document.addEventListener("pjax:success", initScrollReveal);
 <p><strong>不可重复读</strong></p>
 <p>不可重复度指一个事物内多次读取同一数据集合，在这一事物还未结束前，另一事物也访问了同一数据集合并做了修改，从而导致第一个事物两次读取同一数据结果不一致。例如 ：T2 读取一个数据，T1 对该数据做了修改。如果 T2 再次读取这个数据，此时读取的结果和第一次读取的结果不同。  <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232323130323031302e706e67.png" alt="img" loading="lazy"> </p>
 <p><strong>幻影读</strong></p>
+<blockquote>
+<p>某次select的结果不足以支撑后续业务操作</p>
+</blockquote>
 <p>幻读本质上也属于不可重复读， T1 读取某个范围的数据，T2 在这个范围内插入新的数据，T1 再次读取这个范围的数据，此时读取的结果和和第一次读取的结果不同。  <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232323133343330362e706e67.png" alt="img" loading="lazy"> </p>
 <blockquote>
 <p>不可重复读和幻读区别</p>
 </blockquote>
 <p>不可重复读的重点是修改 比如多次读取一条记录发现其中某些列的值被修改 ，而幻读的重点在于新增或删除 比如多次查询同一条查询语句（DQL）时，记录发现记录增多或减少了。 </p>
+<p>举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例一：事物1中A读取自己的工资1000的操作还没完成，事物2的B就修改了A的工资为2000，导致A再次读取自己的工资变为2000；这就是不可重复度</span></span><br><span class="line"><span class="comment">//例二：某工资单表中薪资大于3000的有4人，事物1读取了所有工资大于3000的人查到四条记录，这时事物2插入了一条大于3000的记录，事物1再次读取发现变为了5条，这就是幻读</span></span><br></pre></td></tr></table></figure>
+
+
+
 <hr>
 <p>产生并发不一致性问题的主要原因是破坏了事物的隔离级别，解决方法是通过并发控制来保证隔离性。并发控制通过封锁来实现，但封锁操作需要用户操作，数据库管理系统提供了事物的隔离性级别，以轻松方式处理并发一致性问题</p>
+<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><ul>
+<li><strong>未提交读（READ UNCOMMITTED</strong>）</li>
+</ul>
+<p>事物中的修改，即使没有提交对其他事物也是可见。可能会发生脏读、幻读，不可重复度</p>
+<ul>
+<li><strong>提交读（READ COMMITTED）</strong></li>
+</ul>
+<p>一个事务只能读取已经提交的事物所作的修改，解决脏读，会发生不可重复读、幻读</p>
+<ul>
+<li><strong>可重复读（REPEATABLE READ）</strong></li>
+</ul>
+<p>保证在一个事物中多次读取统一数据的结果一样，解决脏读和不可重复读，会发生幻读</p>
+<ul>
+<li><strong>可串行化（SERIALIZABLE）</strong></li>
+</ul>
+<p>强制事物串行执行，多个事物互不干扰，不会出现并发一致性问题。</p>
+<p>该隔离级别需要加锁实现，因为要使用加锁机制保证同一时间只有一个事物执行，也就是保证事物串行执行。解决脏读、不可重复读、幻读</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ-UNCOMMITTED</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>READ-COMMITTED</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>REPEATABLE-READ</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<h4 id="MySQL默认隔离级别"><a href="#MySQL默认隔离级别" class="headerlink" title="MySQL默认隔离级别"></a>MySQL默认隔离级别</h4><p>MySQL8.0默认隔离级别是可重复读</p>
+<hr>
+<p>MySQL的InnoDB的可重复读，加上加锁读来保证避免幻读。而这个加锁读的机制是<strong>Next-Key Locks</strong></p>
+<h4 id="设置隔离级别"><a href="#设置隔离级别" class="headerlink" title="设置隔离级别"></a>设置隔离级别</h4><p><strong>通过一下语句修改事物的隔离级别</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SET [GLOBAL|SESSION] TRANSACTION IOSLATION LEVEL 隔离级别;</span><br><span class="line">其中隔离级别：</span><br><span class="line">    READ UNCOMMITTED</span><br><span class="line">    READ COMMITTED</span><br><span class="line">    REPEATABLE READ</span><br><span class="line">    SERIALIZABLE</span><br><span class="line">或者</span><br><span class="line">SET [GLOBAL|SESSION] TRANSACTION_ISOLATION=<span class="string">&#x27;隔离级别&#x27;</span></span><br><span class="line">其中隔离级别：</span><br><span class="line">    READ-UNCOMMITTED</span><br><span class="line">    READ-COMMITTED</span><br><span class="line">    REPETABLE-READ</span><br><span class="line">    SERIALIZABLE</span><br></pre></td></tr></table></figure>
+
+<p>关于设置时使用GLOBAL或SESSION的影响：</p>
+<ul>
+<li><p>使用GLOBAL关键字（全局范围）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE;</span><br><span class="line"># 或者</span><br><span class="line">SET GLOBAL TRANSACTION_ISOLATION=<span class="string">&#x27;SERIALIZABLE&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>则：</p>
+<ul>
+<li>当前已经存在的会话无效</li>
+<li>只对执行完该语句之后产生的会话起作用</li>
+</ul>
+</li>
+<li><p>使用SESSION关键字（在会话范围影响）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SET SESSION TRANSCATION IOSLATION LEVEL SERIALIZABLE;</span><br><span class="line">#或者</span><br><span class="line">SET SESSION TRANSACTION_ISOLATION=<span class="string">&#x27;SERIALIZABLE&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>则：</p>
+<ul>
+<li>对当前会话的所有后续的事物有效</li>
+<li>如果在事物之间执行，则对后续的事物有效</li>
+<li>该语句可以在已经开启的事物中间执行，但不会影响当前正在执行的事物</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>小结：数据库规定了多种事物隔离级别，不同隔离级别对应不同的干扰程度，隔离级别越高，数据一致性越好，并发度越低</p>
+</blockquote>
+<h4 id="实际情况演示"><a href="#实际情况演示" class="headerlink" title="实际情况演示"></a>实际情况演示</h4><blockquote>
+<p>使用2个命令行，模拟多线程(多事物)对同一份数据的脏读</p>
+</blockquote>
+<p>MySQL 命令行的默认配置中事务都是自动提交的，即执行 SQL 语句后就会马上执行 COMMIT 操作。如果要显式地开启一个事务需要使用命令：<code>START TRANSACTION</code>。</p>
+<p>我们可以通过下面的命令来设置隔离级别。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET [SESSION|GLOBAL] TRANSACTION ISOLATION LEVEL [READ UNCOMMITTED|READ COMMITTED|REPEATABLE READ|SERIALIZABLE]</span><br></pre></td></tr></table></figure>
+
+<p>我们再来看一下我们在下面实际操作中使用到的一些并发控制语句:</p>
+<ul>
+<li><code>START TRANSACTION</code> |<code>BEGIN</code>：显式地开启一个事务。</li>
+<li><code>COMMIT</code>：提交事务，使得对数据库做的所有修改成为永久性。</li>
+<li><code>ROLLBACK</code>：回滚会结束用户的事务，并撤销正在进行的所有未提交的修改。</li>
+</ul>
+<p><strong>脏读（读未提交）</strong><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-31-1%E8%84%8F%E8%AF%BB(%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4)%E5%AE%9E%E4%BE%8B.jpg" alt="img" loading="lazy"> </p>
+<p><strong>避免脏读（读已提交）</strong><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-31-2%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4%E5%AE%9E%E4%BE%8B.jpg" alt="img" loading="lazy"> </p>
+<p><strong>不可重复读</strong><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-32-1%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%AE%9E%E4%BE%8B.jpg" alt="img" loading="lazy"> </p>
+<p><strong>可重复读</strong> <img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-33-2%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.jpg" alt="img" loading="lazy"> </p>
+<p><strong>幻读</strong> <img src="/2022/04/22/MySQL/phantom_read.png" alt="img" loading="lazy"> </p>
+<blockquote>
+<p>解决幻读方法</p>
+</blockquote>
+<p>解决幻读方法有很多，但核心思想就是一个事物在操作这张表数据时，另外一个事物不允许新增或删除这张表的数据，解决幻读方式：<br>1.将事物隔离级别调整为SERIALIZABLE</p>
+<p>2.在可重复读隔离级别下，给事物操作的这张表添加表锁</p>
+<p>3.在可重复读隔离级别下，给事物操作的这张表添加Next-key Locks</p>
+<blockquote>
+<p>说明：Next-key Locks 相当于行锁+间歇锁</p>
+</blockquote>
+<h3 id="事务的常见分类"><a href="#事务的常见分类" class="headerlink" title="事务的常见分类"></a>事务的常见分类</h3><p>从事务理论角度：</p>
+<ul>
+<li>扁平事务（Flat Transactions） </li>
+<li>带有保存点的扁平事务（Flat Transactions with Savepoints） </li>
+<li>链事务（Chained Transactions） </li>
+<li>嵌套事务（Nested Transactions） </li>
+<li>分布式事务（Distributed Transactions）</li>
+</ul>
+<h3 id="MySQL事务日志"><a href="#MySQL事务日志" class="headerlink" title="MySQL事务日志"></a>MySQL事务日志</h3><h4 id="redo日志"><a href="#redo日志" class="headerlink" title="redo日志"></a>redo日志</h4><h4 id="Undo日志"><a href="#Undo日志" class="headerlink" title="Undo日志"></a>Undo日志</h4><h2 id="封锁"><a href="#封锁" class="headerlink" title="封锁"></a>封锁</h2><blockquote>
+<p>锁的粒度</p>
+</blockquote>
+<p>MySQL提供了两种锁：行级锁和表级锁。</p>
+<p>选择时，应尽量只锁需要修改的那部分数据，而不是所有的资源，锁定的数量越少，并发度越高，发生锁的争用越少。</p>
+<p>但是加锁需要消耗资源，所得各种操作（包括获取锁、释放锁以及检查锁的状体）都会增加系统开销，因此锁的粒度越小，系统开销越大。在选择时需要在锁开销和并发程度间做权衡 。</p>
+<h3 id="锁类型"><a href="#锁类型" class="headerlink" title="锁类型"></a>锁类型</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/SnailMann/article/details/88353099">https://blog.csdn.net/SnailMann/article/details/88353099</a></p>
+<hr>
+<p>1.读写锁</p>
+<ul>
+<li>互斥锁，简写为X锁，又称写锁</li>
+<li>共享锁，简写为S锁，又称读锁</li>
+</ul>
+<p>规定：</p>
+<ul>
+<li>一个事物对数据A加了X锁，就可以对数据A进行读取和更新，加锁期间不能对A加任何锁</li>
+<li>一个事物对数据对象A加了S锁，可以对A进行读取数据，但是不能进行更新，加锁期间其他事物可以对数据对象A加S锁，但不能加X锁</li>
+</ul>
+<p> <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373231333532333737372e706e67.png" alt="img" loading="lazy"> </p>
+<p>2.意向锁</p>
+<p>使用意向锁，可以更容易的支持多粒度封锁。</p>
+<p> 在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。 </p>
+<p>意向锁在原来的X/S锁基础上引入了IS/IX锁，两者都是表锁，表示：</p>
+<ul>
+<li>一个事务在获得某个数据行对象的 S 锁之前，必须先获得表的 IS 锁或者更强的锁；</li>
+<li>一个事务在获得某个数据行对象的 X 锁之前，必须先获得表的 IX 锁。</li>
+</ul>
+<p>通过引入意向锁，事物T想要对表A加X锁，只需要检查是否有其他事物对表A加了X/IX/S/IS锁，如果加了就表示有其他事物正在使用表或表中的一行，因此事物T加锁失败</p>
+<p> <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373231343434323638372e706e67.png" alt="img" loading="lazy"> </p>
+<ul>
+<li>任意 IS/IX 锁之间都是兼容的，因为它们只表示想要对表加锁，而不是真正加锁；</li>
+<li>这里兼容关系针对的是表级锁，而表级的 IX 锁和行级的 X 锁兼容，两个事务可以对两个数据行加 X 锁。（事务 T1 想要对数据行 R1 加 X 锁，事务 T2 想要对同一个表的数据行 R2 加 X 锁，两个事务都需要对该表加 IX 锁，但是 IX 锁是兼容的，并且 IX 锁与行级的 X 锁也是兼容的，因此两个事务都能加锁成功，对同一个表中的两个数据行做修改。）</li>
+</ul>
+<p>3.InnoDB存储引擎行锁的三种实现</p>
+<p>record lock：单个行记录上的锁</p>
+<p>gap lock：间歇锁，锁定一个范围，不包括记录本身</p>
+<p>next-key lock：record lock+gap锁定一个范围包括记录本身</p>
+<p>4.乐观锁和悲观锁</p>
+<p>并不是真正意义的锁，而是一种思想</p>
+<p>悲观锁：悲观并发控制，持一种消极态度，默认数据被访问时，会发生冲突，所以在处理数据整个过程加锁状态</p>
+<p>乐观锁：乐观并发控制，并发环境中始终认为对数据的操作不会发生冲突，在对事物更新提交时，才判断是否发生冲突</p>
+<p>5.行锁、表锁与页锁</p>
+<ul>
+<li>表级锁定：MySQL中锁定粒度最大的一种，表示对当前表加锁</li>
+<li>页级锁定 ：MySQL中锁粒度介于行级锁和表级锁之间的一种锁</li>
+<li>行级锁：MySQL中锁粒度最小的一种，</li>
+</ul>
+<h3 id="封锁协议"><a href="#封锁协议" class="headerlink" title="封锁协议"></a>封锁协议</h3><blockquote>
+<p>三级锁协议</p>
+</blockquote>
+<p>1.一级封锁协议</p>
+<p>事物T想要修改数据A时必须加X锁，知道T结束才释放锁。</p>
+<p>可以解决丢失修改的问题，因为不能有同时两个事物对同一个数据修改 <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232303434303435312e706e67.png" alt="img" loading="lazy"> </p>
+<p>2.二级封锁协议</p>
+<p>在一级基础上，要求读取数据A时必须加S锁，读取完马上释放。</p>
+<p>可以解决脏读问题，因为如果一个事物在对数据A修改，根据一级协议会加X锁，呢么就不能加S锁，也就不会读入数据。 <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232303833313834332e706e67.png" alt="img" loading="lazy"> </p>
+<p>3.三级封锁协议</p>
+<p>在二级的基础上，要求一个事物读取数据A时加S锁，知道事物结束才释放锁。可以解决不可重复读的问题，因为读A时，其他事物不能修改数据A <img src="/2022/04/22/MySQL/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f696d6167652d32303139313230373232313331333831392e706e67.png" alt="img" loading="lazy"> </p>
+<blockquote>
+<p>两端锁协议</p>
+</blockquote>
+<p>加锁和解锁分为两个阶段进行。</p>
+<p>可串行化调度是指，通过并发控制，使得并发执行的事务结果与某个串行执行的事务结果相同。串行执行的事务互不干扰，不会出现并发一致性问题。</p>
+<p>事务遵循两段锁协议是保证可串行化调度的充分条件。例如以下操作满足两段锁协议，它是可串行化调度。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lock-x(A)...lock-s(B)...lock-s(C)...unlock(A)...unlock(C)...unlock(B)</span><br></pre></td></tr></table></figure>
+
+<p> 但不是必要条件，例如以下操作不满足两段锁协议，但它还是可串行化调度。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lock-x(A)...unlock(A)...lock-s(B)...unlock(B)...lock-s(C)...unlock(C)</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL隐式与显示锁定"><a href="#MySQL隐式与显示锁定" class="headerlink" title="MySQL隐式与显示锁定"></a>MySQL隐式与显示锁定</h3><p>MySQL 的 InnoDB 存储引擎采用两段锁协议，会根据隔离级别在需要的时候自动加锁，并且所有的锁都是在同一时刻被释放，这被称为隐式锁定。</p>
+<p>InnoDB 也可以使用特定的语句进行显示锁定：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ... LOCK In SHARE MODE;</span><br><span class="line">SELECT ... FOR UPDATE;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+</blockquote>
 </div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/alipay.jpg"><img loading="lazy" src="/images/alipay.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/wechatpay.png"><img loading="lazy" src="/images/wechatpay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>翔仔</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/2022/04/22/MySQL/" title="MySQL">http://example.com/2022/04/22/MySQL/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/04/18/JVM/" rel="next" title="JVM"><span class="post-nav-text">JVM</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2022 </span><span class="with-love" id="animate" title="云游君的赞助者们"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 翔仔</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.4.2</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.8.11</span></div><div class="live-time"><span>本博客已运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
   setTimeout(blog_live_time, 1000);
   const start = new Date('2022-04-10T00:00:00');
