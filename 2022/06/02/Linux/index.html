@@ -1,0 +1,1621 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="翔仔"><meta name="copyright" content="翔仔"><meta name="generator" content="Hexo 5.4.2"><meta name="theme" content="hexo-theme-yun"><title>Linux | 翔仔的博客</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.2.4/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/@unocss/runtime/mini.global.js"></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"example.com","root":"/","title":"翔仔的小站","version":"1.8.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"darken":"https://cdn.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="一、网络三种连接方式 1.桥接模式虚拟系统可以和外部系统相互通讯，但是容易造成ip冲突（超过255个机器） 2.NAT模式（网络地址转换模式）NAT模式，网络地址转换模式，虚拟系统可以和外部系统单方面通讯（外部不可以直接访问内部），不造成ip冲突，相当于给虚拟机虚拟一个ip，然后在需要访问外部的时候，自动转换成母机ip去访问外部。 3.主机模式可以看作一个独立的系统，不与外界进行联系 二、Linu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux">
+<meta property="og:url" content="http://example.com/2022/06/02/Linux/index.html">
+<meta property="og:site_name" content="翔仔的博客">
+<meta property="og:description" content="一、网络三种连接方式 1.桥接模式虚拟系统可以和外部系统相互通讯，但是容易造成ip冲突（超过255个机器） 2.NAT模式（网络地址转换模式）NAT模式，网络地址转换模式，虚拟系统可以和外部系统单方面通讯（外部不可以直接访问内部），不造成ip冲突，相当于给虚拟机虚拟一个ip，然后在需要访问外部的时候，自动转换成母机ip去访问外部。 3.主机模式可以看作一个独立的系统，不与外界进行联系 二、Linu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654137535310.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654139118207.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654155001295.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654156468739.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654157014174.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654159424327.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654159752962.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654159824550.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654223950779.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654223957958.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654224264397.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654224280022.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654224812185.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654225377361.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654225767335.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654226050252.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654226368079.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654226547717.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654240808714.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654241002979.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654241008934.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654241191485.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654241281542.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654241997752.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654242796878.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654243887209.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246208975.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246240287.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246251332.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246269644.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246292012.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246307575.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246404311.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246427488.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246693537.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654246913916.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247065583.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247407673.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247583881.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247627472.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247696890.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247705509.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247714431.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247766722.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247783537.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247793532.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247860755.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247886462.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247895028.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247973470.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247989836.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654247998886.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654248065747.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654248078000.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654248084487.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654248129210.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654248227749.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654248242792.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654250007836.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654250048349.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654250148204.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654250501853.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654250545377.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654250604178.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255566678.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255614561.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255705887.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255744343.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255759828.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255804293.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255896071.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/image-20220530122433278.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/image-20220530110237896.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/image-20220530094005686.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654255942221.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256000449.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256007000.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256013753.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256019086.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256025087.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256031232.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256037574.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256061644.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256072496.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256082023.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256114098.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256122464.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256170714.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256188422.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256212958.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256223118.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256237481.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256263287.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654256274315.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654307097381.png">
+<meta property="og:image" content="http://example.com/2022/06/02/Linux/1654307123737.png">
+<meta property="article:published_time" content="2022-06-02T02:32:30.000Z">
+<meta property="article:modified_time" content="2022-06-05T01:50:24.915Z">
+<meta property="article:author" content="翔仔">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/06/02/Linux/1654137535310.png"><script>(function() {
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="翔仔"><img width="96" loading="lazy" src="/images/tx.jpg" alt="翔仔"><span class="site-author-status" title="不想上学">😭</span></a><div class="site-author-name"><a href="/about/">翔仔</a></div><span class="site-name">翔仔的博客</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="我的主页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">21</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">15</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=910426929&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/YunYouJun" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="985391895@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%BD%91%E7%BB%9C%E4%B8%89%E7%A7%8D%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">一、网络三种连接方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">1.桥接模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NAT%E6%A8%A1%E5%BC%8F%EF%BC%88%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">2.NAT模式（网络地址转换模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%BB%E6%9C%BA%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">3.主机模式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">二、Linux目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81vi%E5%92%8Cvim%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">三、vi和vim编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%89%E7%A7%8D%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">1.三种使用模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%87%E6%8D%A2"><span class="toc-number">3.2.</span> <span class="toc-text">2.各种模式的切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-vim%E6%93%8D%E4%BD%9C"><span class="toc-number">3.3.</span> <span class="toc-text">3.vim操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BC%80%E5%90%AF%E9%87%8D%E5%90%AF%E4%B8%8E%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%B3%A8%E9%94%80"><span class="toc-number">4.</span> <span class="toc-text">四、开启重启与用户登录注销</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%80%E5%85%B3%E6%9C%BA%E4%B8%8E%E9%87%8D%E5%90%AF"><span class="toc-number">4.1.</span> <span class="toc-text">1.开关机与重启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%92%8C%E6%B3%A8%E9%94%80"><span class="toc-number">4.2.</span> <span class="toc-text">2.用户登录和注销</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">五、Linux用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%A8%E6%88%B7%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">5.1.</span> <span class="toc-text">1.用户基本操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%A8%E6%88%B7%E7%BB%84"><span class="toc-number">5.2.</span> <span class="toc-text">2.用户组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF"><span class="toc-number">5.3.</span> <span class="toc-text">3.用户和组相关信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">六、实用指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%89%BE%E5%9B%9Eroot%E5%AF%86%E7%A0%81-Centos7-6%E4%BB%A5%E5%90%8E"><span class="toc-number">6.1.</span> <span class="toc-text">2.找回root密码(Centos7.6以后)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">6.2.</span> <span class="toc-text">3.帮助命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%B1%BB"><span class="toc-number">6.3.</span> <span class="toc-text">4.文件目录类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="toc-number">6.4.</span> <span class="toc-text">5.时间日期类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%90%9C%E7%B4%A2%E6%9F%A5%E6%89%BE%E7%B1%BB"><span class="toc-number">6.5.</span> <span class="toc-text">6.搜索查找类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%B1%BB"><span class="toc-number">6.6.</span> <span class="toc-text">7.压缩和解压类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">7.</span> <span class="toc-text">七、组管理和权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95-%E6%89%80%E6%9C%89%E8%80%85"><span class="toc-number">7.1.</span> <span class="toc-text">1.文件&#x2F;目录 所有者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E7%BB%84"><span class="toc-number">7.2.</span> <span class="toc-text">2.创建组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95%E6%89%80%E5%9C%A8%E7%BB%84"><span class="toc-number">7.3.</span> <span class="toc-text">3.修改文件&#x2F;目录所在组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%94%B9%E5%8F%98%E7%94%A8%E6%88%B7%E6%89%80%E5%9C%A8%E7%BB%84"><span class="toc-number">7.4.</span> <span class="toc-text">4.改变用户所在组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9D%83%E9%99%90%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-number">7.5.</span> <span class="toc-text">5.权限的基本介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1rwx%E6%9D%83%E9%99%90"><span class="toc-number">7.5.1.</span> <span class="toc-text">5.1rwx权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2rwx%E4%BD%9C%E7%94%A8%E5%88%B0%E6%96%87%E4%BB%B6"><span class="toc-number">7.5.2.</span> <span class="toc-text">5.2rwx作用到文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3rwx%E4%BD%9C%E7%94%A8%E5%88%B0%E7%9B%AE%E5%BD%95"><span class="toc-number">7.5.3.</span> <span class="toc-text">5.3rwx作用到目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90"><span class="toc-number">7.5.4.</span> <span class="toc-text">5.4修改权限</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="toc-number">8.</span> <span class="toc-text">八、定时任务调度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-crond%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="toc-number">8.1.</span> <span class="toc-text">1.crond任务调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81at%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-number">8.2.</span> <span class="toc-text">2、at定时任务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E4%B8%8E%E6%8C%82%E8%BD%BD"><span class="toc-number">9.</span> <span class="toc-text">九、磁盘分区与挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Linux%E5%88%86%E5%8C%BA"><span class="toc-number">9.1.</span> <span class="toc-text">1.Linux分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Linux%E7%A1%AC%E7%9B%98"><span class="toc-number">9.2.</span> <span class="toc-text">2.Linux硬盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A3%81%E7%9B%98%E6%83%85%E5%86%B5%E6%9F%A5%E8%AF%A2"><span class="toc-number">9.3.</span> <span class="toc-text">3.磁盘情况查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">10.</span> <span class="toc-text">十、网络配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Linux%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">10.1.</span> <span class="toc-text">1.Linux网络环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D%E5%92%8Chosts%E6%98%A0%E5%B0%84"><span class="toc-number">10.2.</span> <span class="toc-text">2.设置主机名和hosts映射</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">11.</span> <span class="toc-text">十一、进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">11.1.</span> <span class="toc-text">1.进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="toc-number">11.1.1.</span> <span class="toc-text">1.1查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2%E7%BB%88%E6%AD%A2%E8%BF%9B%E7%A8%8B"><span class="toc-number">11.1.2.</span> <span class="toc-text">1.2终止进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E6%A0%91"><span class="toc-number">11.1.3.</span> <span class="toc-text">1.3查看进程树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9C%8D%E5%8A%A1%EF%BC%88service%EF%BC%89%E7%AE%A1%E7%90%86"><span class="toc-number">11.2.</span> <span class="toc-text">2.服务（service）管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E5%90%8D"><span class="toc-number">11.2.1.</span> <span class="toc-text">2.1查看服务名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB"><span class="toc-number">11.2.2.</span> <span class="toc-text">2.2查看运行级别</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#linux%E5%BC%80%E6%9C%BA%E6%B5%81%E7%A8%8B"><span class="toc-number">11.2.2.0.1.</span> <span class="toc-text">linux开机流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3chkconfig%E6%8C%87%E4%BB%A4"><span class="toc-number">11.2.3.</span> <span class="toc-text">2.3chkconfig指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4systemctl-%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4"><span class="toc-number">11.2.4.</span> <span class="toc-text">2.4systemctl 管理指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3"><span class="toc-number">11.2.5.</span> <span class="toc-text">2.5打开与关闭指定端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8A%A8%E6%80%81%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B"><span class="toc-number">11.3.</span> <span class="toc-text">3.动态监控进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%9B%91%E6%8E%A7%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81"><span class="toc-number">11.4.</span> <span class="toc-text">4.监控网络状态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81RPM%E4%B8%8EYUM"><span class="toc-number">12.</span> <span class="toc-text">十二、RPM与YUM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-rpm%E5%8C%85%E7%9A%84%E7%AE%A1%E7%90%86"><span class="toc-number">12.1.</span> <span class="toc-text">1.rpm包的管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1%E5%AE%89%E8%A3%85rpm%E5%8C%85"><span class="toc-number">12.1.1.</span> <span class="toc-text">1.1安装rpm包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2%E5%8D%B8%E8%BD%BDrpm%E5%8C%85"><span class="toc-number">12.1.2.</span> <span class="toc-text">1.2卸载rpm包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-yum"><span class="toc-number">12.2.</span> <span class="toc-text">2.yum</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83"><span class="toc-number">13.</span> <span class="toc-text">十三、搭建JavaEE环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85jdk"><span class="toc-number">13.1.</span> <span class="toc-text">1.安装jdk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85tomcat"><span class="toc-number">13.2.</span> <span class="toc-text">2.安装tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85idea"><span class="toc-number">13.3.</span> <span class="toc-text">3.安装idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85mysql5-7"><span class="toc-number">13.4.</span> <span class="toc-text">4.安装mysql5.7</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81Shell%E7%BC%96%E7%A8%8B"><span class="toc-number">14.</span> <span class="toc-text">十四、Shell编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFShell"><span class="toc-number">14.1.</span> <span class="toc-text">1.什么是Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">14.2.</span> <span class="toc-text">2.Shell脚本的执行方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Shell%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">14.3.</span> <span class="toc-text">3.Shell的变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">14.4.</span> <span class="toc-text">4.设置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F"><span class="toc-number">14.5.</span> <span class="toc-text">5.位置参数变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F-%E4%BA%86%E8%A7%A3%E5%8D%B3%E5%8F%AF"><span class="toc-number">14.6.</span> <span class="toc-text">6.预定义变量(了解即可)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">14.7.</span> <span class="toc-text">7.运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="toc-number">14.8.</span> <span class="toc-text">8.条件判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">14.9.</span> <span class="toc-text">9.流程控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-if%E5%88%A4%E6%96%AD"><span class="toc-number">14.9.1.</span> <span class="toc-text">9.1 if判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-case%E8%AF%AD%E5%8F%A5"><span class="toc-number">14.9.2.</span> <span class="toc-text">9.2 case语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-for%E5%BE%AA%E7%8E%AF"><span class="toc-number">14.9.3.</span> <span class="toc-text">9.3 for循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-while%E5%BE%AA%E7%8E%AF"><span class="toc-number">14.9.4.</span> <span class="toc-text">9.4 while循环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-read%E8%AF%BB%E5%8F%96%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%85%A5"><span class="toc-number">14.10.</span> <span class="toc-text">10.read读取控制台输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%87%BD%E6%95%B0"><span class="toc-number">14.11.</span> <span class="toc-text">11.函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="toc-number">14.11.1.</span> <span class="toc-text">11.1 函数介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0"><span class="toc-number">14.11.2.</span> <span class="toc-text">11.2 系统函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">14.11.3.</span> <span class="toc-text">11.3 自定义函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Shell%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B"><span class="toc-number">14.12.</span> <span class="toc-text">12.Shell编程综合案例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%94%E3%80%81%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86"><span class="toc-number">15.</span> <span class="toc-text">十五、日志管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-number">15.1.</span> <span class="toc-text">1.基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E7%9A%84%E6%97%A5%E5%BF%97"><span class="toc-number">15.2.</span> <span class="toc-text">2.系统常用的日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1rsyslogd"><span class="toc-number">15.3.</span> <span class="toc-text">3.日志管理服务rsyslogd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%97%A5%E5%BF%97%E8%BD%AE%E6%9B%BF"><span class="toc-number">15.4.</span> <span class="toc-text">4.日志轮替</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F"><span class="toc-number">16.</span> <span class="toc-text">十六、定制自己的Linux系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%83%E3%80%81Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95"><span class="toc-number">17.</span> <span class="toc-text">十七、Linux内核源码目录</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/2022/06/02/Linux/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="翔仔"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="翔仔的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Linux</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-06-02 10:32:30" itemprop="dateCreated datePublished" datetime="2022-06-02T10:32:30+08:00">2022-06-02</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2022-06-05 09:50:24" itemprop="dateModified" datetime="2022-06-05T09:50:24+08:00">2022-06-05</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Linux/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Linux</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/Linux/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Linux</span></a></span></div><div class="post-author"><span class="author-name">翔仔</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="一、网络三种连接方式"><a href="#一、网络三种连接方式" class="headerlink" title="一、网络三种连接方式"></a>一、网络三种连接方式</h1><p><img src="/2022/06/02/Linux/1654137535310.png" alt="1654137535310" loading="lazy"></p>
+<h2 id="1-桥接模式"><a href="#1-桥接模式" class="headerlink" title="1.桥接模式"></a>1.桥接模式</h2><p>虚拟系统可以和外部系统相互通讯，但是容易造成ip冲突（超过255个机器）</p>
+<h2 id="2-NAT模式（网络地址转换模式）"><a href="#2-NAT模式（网络地址转换模式）" class="headerlink" title="2.NAT模式（网络地址转换模式）"></a>2.NAT模式（网络地址转换模式）</h2><p>NAT模式，网络地址转换模式，虚拟系统可以和外部系统单方面通讯（外部不可以直接访问内部），不造成ip冲突，相当于给虚拟机虚拟一个ip，然后在需要访问外部的时候，自动转换成母机ip去访问外部。</p>
+<h2 id="3-主机模式"><a href="#3-主机模式" class="headerlink" title="3.主机模式"></a>3.主机模式</h2><p>可以看作一个独立的系统，不与外界进行联系</p>
+<h1 id="二、Linux目录结构"><a href="#二、Linux目录结构" class="headerlink" title="二、Linux目录结构"></a>二、Linux目录结构</h1><blockquote>
+<p>Linux的文件系统是采用层级式的树状目录结构，最上层是根目录“/”，然后在此目录下创建其他目录</p>
+</blockquote>
+<p>Linux世界里，一切皆文件</p>
+<ul>
+<li>/bin (/usr/bin、/usr/local/bin),是Binary的缩写，存放着最常使用的命令（常用）</li>
+<li>/sbin 存放的是系统管理员使用的系统管理程序</li>
+<li>/home 存放普通用户的主目录，在linux中每个用户都有自己的目录（常用）</li>
+<li>/root 系统管理员，也称为超级权限者的用户主目录（常用）</li>
+<li>/lib 系统开机所需要的最基本的动态连接共享库</li>
+<li>/lost+found 一般情况是空的，当系统非法关机后，这里就存放了一些文件</li>
+<li>/etc 所有的系统管理所需要的配置文件和子目录，例如mysql的my.conf（常用）</li>
+<li>/usr 用户的很多应用程序和文件都放在这个目录下，类似于windows的program files目录（常用）</li>
+<li>/boot 存放的是启动linux时使用的一些核心文件，包括一些连接文件以及镜像文件（常用）</li>
+<li>/proc 是一个虚拟目录，是系统内存的映射，访问这个目录来获取系统信息（不能动）</li>
+<li>/srv service的缩写，存放一些服务启动之后需要提取的数据（不能动）</li>
+<li>/sys linux2.6之后出现，安装了一个文件系统sysfs（不能动）</li>
+<li>/tmp 用来存放一些临时文件</li>
+<li>/dev 类似于Windows的设备管理器，把所有的硬件用文件形式存储</li>
+<li>/media 会自动识别一些例如u盘光驱等设备，识别后就将识别的设备挂载到这目录下（常用）</li>
+<li>/mnt 该目录是为了让用户挂载别的文件系统，可以将外部存储挂载在/mnt上，进入该目录查看（常用）</li>
+<li>/opt 给主机额外安装软件的目录</li>
+<li>/usr/local 另一个给主机额外安装软件所安装的目录，一般是通过编译源码方式安装的程序</li>
+<li>/var 存放一些不断扩张的东西，习惯将经常被修改的目录放在这个目录下，包括各种日志文件（常用）</li>
+<li>/selinux[security-enhanced linux] 是一种安全的子系统，它能控制程序只访问特定文件，有三种工作模式，可以自行设置</li>
+</ul>
+<h1 id="三、vi和vim编辑器"><a href="#三、vi和vim编辑器" class="headerlink" title="三、vi和vim编辑器"></a>三、vi和vim编辑器</h1><h2 id="1-三种使用模式"><a href="#1-三种使用模式" class="headerlink" title="1.三种使用模式"></a>1.三种使用模式</h2><blockquote>
+<p>正常模式（ <strong>命令模式</strong> ）</p>
+</blockquote>
+<p>  以vim打开一个档案就直接进入一般模式了(这是默认的模式)。在这个模式中，你可以使用「上下左右』按键来移动光标，你可以使用『删除字符』或『删除整行』来处理档案内容，也可以使用『复制、粘贴』来处理你的文件数据。 </p>
+<blockquote>
+<p><strong>插入模式</strong></p>
+</blockquote>
+<p> 按下i，I，o，O，a，A，r，R等任何一个字母之后才会进入编辑模式，一般按<strong>i</strong>即可</p>
+<blockquote>
+<p><strong>命令行模式</strong></p>
+</blockquote>
+<p> 输入esc退出当前模式，再输入<code>:</code>进入命令行模式</p>
+<p> 可以提供相关指令，完成读取，存盘，替换，离开vim显示行号等动作。</p>
+<h2 id="2-各种模式的切换"><a href="#2-各种模式的切换" class="headerlink" title="2.各种模式的切换"></a>2.各种模式的切换</h2><p><img src="/2022/06/02/Linux/1654139118207.png" alt="1654139118207" loading="lazy"></p>
+<h2 id="3-vim操作"><a href="#3-vim操作" class="headerlink" title="3.vim操作"></a>3.vim操作</h2><p>在一般模式下:</p>
+<ul>
+<li>yy 拷贝当前行；5yy 拷贝当前向下的5行，p 粘贴 u撤销 x删除</li>
+<li>dd 删除当前行；5dd：删除当前向下的5行</li>
+<li>G 文档最末行，gg 最首行</li>
+<li>先输入行号 在输入shift+g 表示移动到多少行</li>
+</ul>
+<p>在命令行模式下:</p>
+<ul>
+<li>wq(保存退出) q(退出) q!(强制退出不保存)</li>
+<li>/关键字 回车 查找某个单词，输入n是查找下一个</li>
+<li>set nu 设置文件的行号，set nonu 取消文件的行号</li>
+</ul>
+<h1 id="四、开启重启与用户登录注销"><a href="#四、开启重启与用户登录注销" class="headerlink" title="四、开启重启与用户登录注销"></a>四、开启重启与用户登录注销</h1><h2 id="1-开关机与重启"><a href="#1-开关机与重启" class="headerlink" title="1.开关机与重启"></a>1.开关机与重启</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>shutdown -h now</td>
+<td>立刻关机</td>
+</tr>
+<tr>
+<td>shutdown -h 1</td>
+<td>一分钟后关机</td>
+</tr>
+<tr>
+<td>shutdown -r now</td>
+<td>重启</td>
+</tr>
+<tr>
+<td>hait</td>
+<td>关机，作用和上面一样</td>
+</tr>
+<tr>
+<td>reboot</td>
+<td>现在重启计算机</td>
+</tr>
+<tr>
+<td>sync</td>
+<td>把内存的数据同步到磁盘</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>不管是重启系统还是关闭系统，首先要运行sync命令。把内存中的数据写到磁盘中</li>
+<li>目前的shutdown/reboot/hait等命令均已在关机前进行了sync，但是还是执行一次比较好</li>
+</ul>
+</blockquote>
+<h2 id="2-用户登录和注销"><a href="#2-用户登录和注销" class="headerlink" title="2.用户登录和注销"></a>2.用户登录和注销</h2><p><strong>基本介绍</strong></p>
+<p>1.登录的时候尽量少用root账号登录，因为他是系统管理员，最大的权限，避免操作事务。可以利用普通用户登录，登陆后再用“<strong>su - 用户名</strong>”命令切换成系统管理员身份</p>
+<p>2.在提示符下输入<strong>logout</strong>即可注销用户</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>su - 用户名</td>
+<td>切换用户</td>
+</tr>
+<tr>
+<td>logout</td>
+<td>注销用户</td>
+</tr>
+</tbody></table>
+<h1 id="五、Linux用户管理"><a href="#五、Linux用户管理" class="headerlink" title="五、Linux用户管理"></a>五、Linux用户管理</h1><p> linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统 </p>
+<h2 id="1-用户基本操作"><a href="#1-用户基本操作" class="headerlink" title="1.用户基本操作"></a>1.用户基本操作</h2><p><strong>添加用户</strong></p>
+<ul>
+<li><strong>useradd 用户名</strong>  添加用户</li>
+<li><strong>useradd -g 用户组 用户名</strong>   增加用户时直接加上组</li>
+<li><strong>useradd -d 目录 用户名</strong>  给新创建的用户指定home目录</li>
+</ul>
+<p>创建成功后，会自动创建和用户名相同的home目录，也可以通过useradd -d 指定目录 用户名  给新创建的用户指定home目录</p>
+<p>直接添加用户二不指定组，则虚拟机会默认创建一个以用户为名的组并将其放入其中</p>
+<p><strong>修改/指定密码</strong></p>
+<p><strong>passwd 用户名</strong>，给用户设置密码</p>
+<p><strong>pwd</strong>，显示当前用户所在目录</p>
+<p><strong>删除用户</strong></p>
+<ul>
+<li><strong>userdel 用户名</strong>，删除用户但保留对应的home目录</li>
+<li><strong>userdel -r 用户名</strong>，删除用户名并删除对应的home目录</li>
+</ul>
+<p><strong>查询用户信息</strong></p>
+<ul>
+<li><strong>id 用户名</strong>，查询用户信息</li>
+</ul>
+<p><strong>切换用户</strong></p>
+<ul>
+<li><strong>su - 切换的用户名</strong>，切换用户，高权限切换低权限不需要密码，反之需要</li>
+<li><strong>exit/logout</strong>，返回原来的用户</li>
+</ul>
+<p><strong>查看当前用户</strong></p>
+<ul>
+<li><strong>whoami/who am i</strong>，不加空格是当前操作的用户，加空格是第一次登录的用户</li>
+</ul>
+<p><img src="/2022/06/02/Linux/1654155001295.png" alt="1654155001295" loading="lazy"></p>
+<h2 id="2-用户组"><a href="#2-用户组" class="headerlink" title="2.用户组"></a>2.用户组</h2><p><strong>介绍</strong></p>
+<p>类似于角色，系统可以对有共性/权限的多个用户进行统一管理，所有在一个组的用户都会有这个组的权限</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>groupadd 组名</td>
+<td>新增组</td>
+</tr>
+<tr>
+<td>groupdel 组名</td>
+<td>删除组</td>
+</tr>
+<tr>
+<td>useradd -g 用户组 用户名</td>
+<td>增加用户时加上组</td>
+</tr>
+</tbody></table>
+<h2 id="3-用户和组相关信息"><a href="#3-用户和组相关信息" class="headerlink" title="3.用户和组相关信息"></a>3.用户和组相关信息</h2><ul>
+<li><p>/etc/passwd 文件</p>
+<p>用户（user）的配置文件，记录用户的各种信息，每一行都是一个用户，含义：<strong>用户名：口令：用户标识符：组标识号：注释性描述：主目录：登录shell</strong></p>
+</li>
+<li><p>/etc/shadow 文件</p>
+<p>口令配置文件，每行含义：<strong>登录名：加密口令：最后一次修改时间：最小时间间隔：最大时间间隔：警告时间：不活动时间：失效时间：标志</strong></p>
+</li>
+<li><p>/etc/group 文件</p>
+<p>组的标志文件，记录Linux中组的信息，每行含义：<strong>组名：口令：组标识号：组内用户列表</strong></p>
+</li>
+</ul>
+<h1 id="六、实用指令"><a href="#六、实用指令" class="headerlink" title="六、实用指令"></a>六、实用指令</h1><p>运行级别说明：</p>
+<p>​    0.关机</p>
+<ol>
+<li>单用户[找回丢失的密码]</li>
+<li>多用户状态没有网络服务</li>
+<li>多用户状态有网络服务</li>
+<li>系统未使用保留给用户</li>
+<li>图形界面</li>
+<li>系统重启</li>
+</ol>
+<p>常用运行级别是3和5，也可以指定默认运行级别</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>init[0123456]</td>
+<td>切换不同的运行级别</td>
+</tr>
+<tr>
+<td>systemctl get-default</td>
+<td>查看目前的运行级别</td>
+</tr>
+<tr>
+<td>systemctl set-default mult-user.target  /  systemctl set-default graphical.target</td>
+<td>设置运行级别，前者相当于3，后者相当于5</td>
+</tr>
+</tbody></table>
+<h2 id="2-找回root密码-Centos7-6以后"><a href="#2-找回root密码-Centos7-6以后" class="headerlink" title="2.找回root密码(Centos7.6以后)"></a>2.找回root密码(Centos7.6以后)</h2><ol>
+<li>启动系统，进入开机页面，在页面中按‘e’进入编辑界面 (5s之内)</li>
+<li>进入之后使用键盘的上下键移动光标，找到以“Linux 16”开头所在的行数，在行的最后输入<code>:init=/bin/sh</code></li>
+<li>输入之后按快捷键<code>Ctrl + x</code> 进入单用户模式</li>
+<li>在光标闪烁的位置输入<code>mount -o remount,rw /</code> (单词间有空格)，然后按回车</li>
+<li>在新的一行最后面输入<code>passwd</code>。完成后按回车输入密码，然后再次确认密码即可</li>
+<li>接着在鼠标闪烁的位置输入<code>: touch /.autorelabel</code>(touch 后面有空格),之后继续按回车</li>
+<li>接着在光标闪烁的位置输入 <code>exec /sbin/init</code> 之后按回车键，等待系统修改密码(过程时间有点长)，完成后系统会自动重启</li>
+</ol>
+<h2 id="3-帮助命令"><a href="#3-帮助命令" class="headerlink" title="3.帮助命令"></a>3.帮助命令</h2><ul>
+<li>**man [命令或配置文件]**，获得帮助信息</li>
+<li><strong>help 命令</strong>，获得shell内置命令的帮助信息</li>
+</ul>
+<h2 id="4-文件目录类"><a href="#4-文件目录类" class="headerlink" title="4.文件目录类"></a>4.文件目录类</h2><ul>
+<li><strong>pwd</strong> 显示当前工作目录的绝对路径</li>
+<li><strong>ls</strong> 显示目录:常用选项: <strong>-a</strong>,显示所有，包括隐藏的，**-l** 以列表 <strong>-lh</strong> (h是human的意思)指的是按照人类比较容易看的方式显示</li>
+<li><strong>cd</strong> 定位相对路径或绝对路径 **cd~<strong>回到自己的home目录，</strong>cd..**回到上级目录</li>
+<li><strong>mkdir</strong> 创建目录 mkdir [选项] 要创建的目录 <strong>-p</strong>为创建多级目录</li>
+<li><strong>rmdir</strong> 删除目录 mkdir[选项] 要删除的空目录 ，如果需要删除非空目录，需要使用<strong>rm -rf</strong> 要删除的目录 <strong>-r</strong>表示递归，<strong>f</strong>表示强制删除</li>
+<li><strong>touch</strong> 创建空文件</li>
+<li><strong>cp</strong> 拷贝文件到指令目录 <strong>cp [选项] 文件 指定目录</strong> 选项:<strong>-r</strong> 递归复制整个文件夹 **\cp [选项] 文件 指定目录 ** 强制覆盖不提示</li>
+<li><strong>rm</strong> 删除文件或目录 rm[选项] 要删除的文件或目录，**-r**递归 <strong>-f</strong>强制删除不提示</li>
+<li><strong>mv</strong> 移动文件或重命名 重命名:<strong>mv old文件名 new文件名</strong> 移动: <strong>mv /old位置 /new位置</strong></li>
+<li><strong>cat</strong> 查看文件内容 <strong>-n</strong>显示行号 为了浏览方便一般会加上 <strong>|more</strong></li>
+<li>more要查看的文件 ，指令中内置了快捷键，可以独立使用 也可以与cat命令一起使用<ul>
+<li>空格键(space) 向下翻一页</li>
+<li>回车键(Enter) 向下翻一行</li>
+<li>q 立刻离开</li>
+<li>Ctrl+f 向下滚动一屏</li>
+<li>Ctrl+B 返回上一屏</li>
+<li>= 输出当前行的行号</li>
+<li>:f 输出文件名和当前行的行号</li>
+</ul>
+</li>
+<li>less分屏查看文件内容，与more类似却更加强大，他是懒加载模式<ul>
+<li>空格键(space) 向下翻一页</li>
+<li>下键(pagedown) 向下翻一页</li>
+<li>上建(pageup) 向上翻一页</li>
+<li>/ 向下搜索字串功能 n向下查找；N向上查找</li>
+<li>？ 向上搜索字串功能 n向上查找；N向下查找</li>
+<li>q 立刻离开</li>
+</ul>
+</li>
+<li><strong>echo</strong> 输出内容到控制台，例如要输出环境变量 echo $PATH</li>
+<li><strong>head</strong> 显示文件开头的部分内容，默认十行 <strong>head -n 任意数字</strong>，查看前任意行</li>
+<li><strong>tail</strong> 显示文件中尾部内容，默认十行 <strong>tail -n 任意数字</strong> 查看尾n行 <strong>tail -f</strong> 实时追踪文件更新</li>
+<li>&gt;与&gt;&gt;输出重定向(覆盖)和追加<ul>
+<li>ls -l &gt; 文件 列表的内容写入到文件中(覆盖)</li>
+<li>ls -al &gt;&gt;文件 列表内容追加到文件的末尾</li>
+<li>cat 文件1&gt;文件2 文件1内容覆盖到文件2(覆盖)</li>
+<li>echo “内容” &gt;&gt; 文件 将内容追加到文件末尾</li>
+</ul>
+</li>
+<li><strong>ln</strong> 软连接，也被称为符号链接，类似于Windows的快捷方式 l<strong>n -s [源文件或目录] [软连接名]</strong> 删除软连接<strong>rm</strong>的时候最后不要带上/</li>
+<li><strong>history</strong> 查看已经执行过的历史命令 后面加数字是查看最近的n个命令，查看的命令前会带有参数，可以直接**!+参数**来执行命令</li>
+</ul>
+<h2 id="5-时间日期类"><a href="#5-时间日期类" class="headerlink" title="5.时间日期类"></a>5.时间日期类</h2><ul>
+<li>date指令-显示当前日期<ul>
+<li>date （功能描述：显示当前时间）</li>
+<li>date + %Y (功能描述：显示当前年份)</li>
+<li>date + %m (功能描述：显示当前月份)</li>
+<li>date + %d (功能描述：显示当前是哪一天)</li>
+<li>date “+%Y-%m-%d %H:%M:%S” (功能描述：显示年月日时分秒)</li>
+<li><strong>date -s 字符串时间</strong> 设置日期</li>
+</ul>
+</li>
+<li><strong>cal +选项</strong> 查看日历，不加选项默认本月,加了就是参数当年的日历</li>
+</ul>
+<h2 id="6-搜索查找类"><a href="#6-搜索查找类" class="headerlink" title="6.搜索查找类"></a>6.搜索查找类</h2><ul>
+<li><p><strong>find</strong>从指定目录<strong>向下递归遍历</strong>其各个子目录，将满足条件的文件或目录显示在终端，<strong>语法:find [搜索范围] [选项]</strong> 选项: -name&lt;查询方式&gt; 按照指定的文件名查找模式查找文件， -user&lt;用户名&gt; 查找属于指定用户名的所有文件 -size&lt;文件大小&gt; 按照指定的文件大小查找文件 <img src="/2022/06/02/Linux/1654156468739.png" alt="1654156468739" loading="lazy"></p>
+</li>
+<li><p> <strong>locate</strong>快速定位文件路径，locate指令利用事先建立的系统中所有文件名称以及路径的locate数据库实现快速定位给定的文件需遍历整个系统，速度较快，但为了保证查询结果的准确度，管理员必须定期更新locate时刻。 <strong>语法：</strong>locate 搜索文件,<strong>执行之前 必须先执行updatedb</strong> </p>
+</li>
+</ul>
+<blockquote>
+<p>由于locate指令基于数据库查询，所以第一次查找前必须使用updatedb指令来创建一个新的locate库</p>
+</blockquote>
+<ul>
+<li><p>witch 可以查看某个指令在哪个目录下，比如ls指令在哪个目录，which ls</p>
+</li>
+<li><p>grep和管道符“|”过滤查找，管道符“|”表示将前一个命令的处理结果输出传递给后面的命令处理，基本语法：<strong>grep [选项] 查找内容 源文件</strong> -n 显示匹配行及行号，-i 忽略字母大小写</p>
+<p><img src="/2022/06/02/Linux/1654157014174.png" alt="1654157014174" loading="lazy"></p>
+<p>示例：在hello.txt中，查找“yes”所在行，并且显示行号</p>
+<p>写法1：cat /home/hello.txt | grep “yes”</p>
+<p>写法2：grep  -n “yes” /home/hello.txt</p>
+</li>
+</ul>
+<h2 id="7-压缩和解压类"><a href="#7-压缩和解压类" class="headerlink" title="7.压缩和解压类"></a>7.压缩和解压类</h2><ul>
+<li><p>gzip/gunzip压缩（压缩成*.gz文件）/解压文件</p>
+<ul>
+<li><strong>基本语法</strong>：gzip 文件（功能描述：压缩文件，只能将文件压缩为*.gz文件）</li>
+<li><strong>基本语法</strong>：gunzip 文件.gz（功能描述：解压文件）</li>
+</ul>
+</li>
+<li><p>zip/unzip 压缩/解压缩 -r递归压缩，-d&lt;目录&gt;指定解压后文件存放目录</p>
+<ul>
+<li>基本语法：zip [选项] xxx.zip（功能描述：压缩文件和目录的命令）</li>
+<li>基本语法：unzip [选项] xxx.zip（功能描述：解压缩文件）</li>
+</ul>
+</li>
+<li><p>tar 压缩和解压缩，最后打包的是.tar.gz文件</p>
+<ul>
+<li>基本语法：tar [选项] xxx.tar.gz 打包的内容（功能描述：打包目录，压缩后的文件格式.tar.gz）</li>
+<li>-c 产生.tar打包文件</li>
+<li>-v 显示详细信息</li>
+<li>-f 指定压缩后的文件名</li>
+<li>-z 打包同时压缩/解压有x是解压，有c是压缩</li>
+<li>-x 解包.tar文件</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/06/02/Linux/1654159424327.png" alt="1654159424327" loading="lazy"></p>
+<h1 id="七、组管理和权限管理"><a href="#七、组管理和权限管理" class="headerlink" title="七、组管理和权限管理"></a>七、组管理和权限管理</h1><p>在linux中每一个用户都必须属于一个组，不能独立于组外，在linux中每个<strong>文件有所有者、所在组、其他组</strong>的概念 </p>
+<h2 id="1-文件-目录-所有者"><a href="#1-文件-目录-所有者" class="headerlink" title="1.文件/目录 所有者"></a>1.文件/目录 所有者</h2><p>一般为文件的创建者，谁创建了该文件，就成为该文件的所有者</p>
+<ul>
+<li><strong>ls -ahl</strong> 查看文件的所有者</li>
+<li><strong>chown 用户名 文件名/目录名</strong> ，修改文件/目录所有者</li>
+<li><strong>chown 用户名：组名 文件/目录</strong>，修改文件/目录的所有者和所在组   -R 递归</li>
+</ul>
+<h2 id="2-创建组"><a href="#2-创建组" class="headerlink" title="2.创建组"></a>2.创建组</h2><ul>
+<li><p>groupadd 组名</p>
+<p><img src="/2022/06/02/Linux/1654159752962.png" alt="1654159752962" loading="lazy"></p>
+</li>
+</ul>
+<h2 id="3-修改文件-目录所在组"><a href="#3-修改文件-目录所在组" class="headerlink" title="3.修改文件/目录所在组"></a>3.修改文件/目录所在组</h2><p>当一个用户创建了一个文件之后，这个文件的所在组就是该用户所在的组</p>
+<ul>
+<li><p><strong>chgrp 组名 文件名/目录名</strong> 改变所在组</p>
+<p><img src="/2022/06/02/Linux/1654159824550.png" alt="1654159824550" loading="lazy"></p>
+</li>
+</ul>
+<h2 id="4-改变用户所在组"><a href="#4-改变用户所在组" class="headerlink" title="4.改变用户所在组"></a>4.改变用户所在组</h2><ul>
+<li>usermod -g 组名 用户名</li>
+<li>usermod -d 目录名 用户名 改变该用户登录的初始目录。<strong>特别说明</strong>：用户需要有进入到新目录的权限</li>
+</ul>
+<h2 id="5-权限的基本介绍"><a href="#5-权限的基本介绍" class="headerlink" title="5.权限的基本介绍"></a>5.权限的基本介绍</h2><h3 id="5-1rwx权限"><a href="#5-1rwx权限" class="headerlink" title="5.1rwx权限"></a>5.1rwx权限</h3><p>ls -l 中显示的内容如下：<br>-rwxrw-r– 1 root root 1213 Feb 2 09:39 abc</p>
+<p>0-9位说明：</p>
+<ol>
+<li>第0位是确定文件类型(d,-,l,c,b)<ol>
+<li><strong>l是链接</strong>，相当于windows的快捷方式</li>
+<li><strong>d是目录</strong>，相当于windows的文件夹</li>
+<li><strong>c是字符设备文件</strong>，鼠标、键盘</li>
+<li><strong>b是块设备</strong>，比如硬盘</li>
+<li><strong>-是普通文件</strong></li>
+</ol>
+</li>
+<li>第1-3位确定所有者（该文件的所有者）拥有该文件的权限。—user</li>
+<li>第4-6位确定所属组（同用户组的）拥有该文件的权限。—】group</li>
+<li>第7-9位确定其他用户拥有该文件的权限。—other</li>
+</ol>
+<p><strong>1：</strong>文件：硬连接数</p>
+<p>​       目录：子目录数(包括隐藏的 . 和 ..)+子文件数</p>
+<p><strong>root：</strong>用户</p>
+<p><strong>root</strong>：组</p>
+<p><strong>12123：</strong>文件大小(字节)，如果是文件夹，显示4069字节</p>
+<p>**feb…**：最后修改日期</p>
+<p><strong>abc：</strong>文件名</p>
+<h3 id="5-2rwx作用到文件"><a href="#5-2rwx作用到文件" class="headerlink" title="5.2rwx作用到文件"></a>5.2rwx作用到文件</h3><p>1.<strong>r：</strong>代表可读(read)：可以读取，查看</p>
+<p>2.<strong>w：</strong>代表可写(write)：可以修改，但不代表可以删除文件，删除一个文件的前提条件是对该文件所在的目录有写权限，才能删除该文件</p>
+<p>3.<strong>x：</strong>代表可以执行(execute)：可以被执行</p>
+<h3 id="5-3rwx作用到目录"><a href="#5-3rwx作用到目录" class="headerlink" title="5.3rwx作用到目录"></a>5.3rwx作用到目录</h3><p>1.r：代表可读（read）：可以读取，可以ls显示目录内容</p>
+<p>2.w：代表可写（write）：可以修改，可以在该目录中创建+删除+重命名目录中的文件</p>
+<p>3.x：代表可执行（execute）： 可以进入该目录 (意思是可以cd到目录，但不可以ls目录，如果对目录下的文件有修改功能，也是可以 修改的) </p>
+<h3 id="5-4修改权限"><a href="#5-4修改权限" class="headerlink" title="5.4修改权限"></a>5.4修改权限</h3><p>通过chomd指令，可以修改文件或目录的权限，权限可用数字表示，r为4，w为2，x为1</p>
+<ul>
+<li><p>+、-、=变更权限</p>
+<ul>
+<li>u为所有者，g为所在组，o为其他人</li>
+<li>1.chmod u=rwx，g=rx，o=x 文件/目录名</li>
+<li>2.chmod o+w 文件/目录名</li>
+<li>3.chmod a-x 文件/目录名</li>
+</ul>
+</li>
+<li><p>通过数字变更权限</p>
+<ul>
+<li>r=4 w=2 x=1 r+w+x=4+2+1=7</li>
+<li>chmod u=rwx,g=rx,o=x 文件/目录 相当于chmod 751 文件/目录</li>
+</ul>
+</li>
+</ul>
+<h1 id="八、定时任务调度"><a href="#八、定时任务调度" class="headerlink" title="八、定时任务调度"></a>八、定时任务调度</h1><h2 id="1-crond任务调度"><a href="#1-crond任务调度" class="headerlink" title="1.crond任务调度"></a>1.crond任务调度</h2><p>任务调度：是指系统在某个时间执行的特定的命令或程序</p>
+<p>任务调度分类：系统工作：有些重要的工作必须<strong>周而复始</strong>地执行。如病毒扫描。</p>
+<p>个别用户工作：个别用户可能希望执行某些程序，比如mysql程序的备份</p>
+<ul>
+<li>基本语法： <strong>crontab [选项]</strong> <strong>service crond restart [重启任务调度]</strong></li>
+<li>常用选项<ul>
+<li>-e 编辑crontab定时任务</li>
+<li>-l 查询crontab任务</li>
+<li>-r 删除当前用户所有的crontab任务</li>
+</ul>
+</li>
+</ul>
+<p><strong>快速入门</strong></p>
+<p> 设置任务调度文件：/etc/crontab</p>
+<p> 设置个人任务调度。执行crontab -e命令。</p>
+<p> 接着输入任务到调度文件</p>
+<p>如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt（将etc目录下的内容显示出来 然后重定向到/tmp/to.txt中）</p>
+<p>意思是：每小时的每分钟执行ls -l /etc/ &gt; /tmp/to.txt命令</p>
+<p>占位符：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>含义</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一个 ”*“</td>
+<td>一小时当中的第几分钟</td>
+<td>0~59</td>
+</tr>
+<tr>
+<td>第二个 ”*“</td>
+<td>一天当中的第几小时</td>
+<td>0~23</td>
+</tr>
+<tr>
+<td>第三个 ”*“</td>
+<td>一个月当中的第几天</td>
+<td>1~31</td>
+</tr>
+<tr>
+<td>第四个 ”*“</td>
+<td>一年当中的第几个月</td>
+<td>1~12</td>
+</tr>
+<tr>
+<td>第五个 ”*“</td>
+<td>一周当中的星期几</td>
+<td>0~7(0和7都代表星期日)</td>
+</tr>
+</tbody></table>
+<p>特殊符号说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特殊符号</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*</td>
+<td align="left">代表任何时间，比如第一个*代表一小时中的每一分钟都执行一次的意思</td>
+</tr>
+<tr>
+<td align="left">，</td>
+<td align="left">代表不连续的时间，比如“0 8,12,16 * * *”代表每天的8:00,12:00,16:00都会执行</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">代表连续的时间范围，如“0 5 * * 1-6”代表周一到周六的凌晨5:00执行命令</td>
+</tr>
+<tr>
+<td align="left">*/n</td>
+<td align="left">代表每隔多久执行一次,如“*/10 * * * *”代表每隔十分钟执行一次命令</td>
+</tr>
+</tbody></table>
+<p><img src="/2022/06/02/Linux/1654223950779.png" alt="1654223950779" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654223957958.png" alt="1654223957958" loading="lazy"></p>
+<h2 id="2、at定时任务"><a href="#2、at定时任务" class="headerlink" title="2、at定时任务"></a>2、at定时任务</h2><ul>
+<li><p>at命令是一次性定时计划任务，at的守护进程atd会以后台模式运行，检查作业队列来运行</p>
+</li>
+<li><p>默认情况atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</p>
+</li>
+<li><p>at命令是一次性定时计划任务，执行完一个任务后就不再执行此任务了</p>
+</li>
+<li><p>在使用at命令的时候，一定要保证atd进行的启动</p>
+</li>
+<li><p><strong>at [选项] [时间]</strong> ctrl+D代表命令输入结束(需要输入<strong>两次</strong>) 如果输入错误 摁 Ctrl+backspace删除</p>
+</li>
+<li><p><strong>atq</strong> 列出所有的任务</p>
+</li>
+<li><p><strong>atrm 编号</strong> 删除指定任务</p>
+</li>
+</ul>
+<p><strong>at命令项</strong></p>
+<p><img src="/2022/06/02/Linux/1654224264397.png" alt="1654224264397" loading="lazy"></p>
+<p><strong>at时间定义</strong></p>
+<p><img src="/2022/06/02/Linux/1654224280022.png" alt="1654224280022" loading="lazy"></p>
+<h1 id="九、磁盘分区与挂载"><a href="#九、磁盘分区与挂载" class="headerlink" title="九、磁盘分区与挂载"></a>九、磁盘分区与挂载</h1><h2 id="1-Linux分区"><a href="#1-Linux分区" class="headerlink" title="1.Linux分区"></a>1.Linux分区</h2><p>Linux只有一个根目录，一个独立且唯一的文件结构，Linux中每个分区都是用来组成整个文件系统的一部分</p>
+<p>linux采用了一种叫”载入”的处理方法，他的整个文件系统中包含了一整套的文件和目录，且将一个分区和一个目录联系起来，这时要载入的一个分区将使得它的存储空间在一个目录下获得</p>
+<p><img src="/2022/06/02/Linux/1654224812185.png" alt="1654224812185" loading="lazy"></p>
+<h2 id="2-Linux硬盘"><a href="#2-Linux硬盘" class="headerlink" title="2.Linux硬盘"></a>2.Linux硬盘</h2><p>硬盘说明：</p>
+<p> 1、linux分为IDE硬盘和SCSI硬盘，目前基本上是SCSI硬盘</p>
+<p> 2、对于IDE硬盘，驱动器标识符为“hdx~”，hd表示分区所在设备的类型，”x“为盘号(a为基本盘，b为基本从属盘，c为辅助主盘，d为辅助从属盘)，” ~ “代表分区，前四个分区用数字1到4表示，他们是主分区或扩展分区，从5开始就是逻辑分区。</p>
+<p> 3、对于SCSI硬盘，驱动器标识符为“sdx~”，其余和IDE硬盘的表示方法一样</p>
+<p><img src="/2022/06/02/Linux/1654225377361.png" alt="1654225377361" loading="lazy"></p>
+<p><strong>指令：</strong></p>
+<ul>
+<li><strong>lsblk 或者 lsblk -f(详细)</strong> 查看所有设备挂载情况</li>
+<li>fdisk 分区<ul>
+<li><strong>m</strong>显示命令列表；</li>
+<li><strong>p</strong>显示磁盘分区，同<strong>fdisk -l</strong>；</li>
+<li><strong>n</strong>新增分区，</li>
+<li><strong>d</strong>删除分区，</li>
+<li><strong>w</strong>写入并退出；</li>
+<li><strong>分区操作：</strong>开始分区后<strong>输入n</strong>，新增分区，然后<strong>选择p</strong>，分区类型为主分区。<strong>两次回车</strong>默认剩余全部空间，最后<strong>输入w写入分区并退出，若不保存退出输入q</strong></li>
+</ul>
+</li>
+<li><strong>mkfs [选项] [-t 分区格式(ext4)] 分区路径</strong> 格式化分区</li>
+<li><strong>mount 设备名称 挂载目录</strong> 挂载分区</li>
+<li><strong>umount 设备名称 或者 挂载目录</strong> 卸载分区</li>
+</ul>
+<p>使用命令行挂载之后，重启之后会失效</p>
+<ul>
+<li><strong>永久挂载：</strong>修改/etc/fstab实现挂载，添加完成之后，执行mount -a 即刻生效</li>
+</ul>
+<blockquote>
+<p>使用命令行挂载之后，重启之后会失效</p>
+</blockquote>
+<p><strong>虚拟机增加硬盘步骤</strong></p>
+<p>1、在菜单中选择设置，在设备列表里添加硬盘，然后一直下一步。</p>
+<p>2、使用分区命令开始分区。<img src="/2022/06/02/Linux/1654225767335.png" alt="1654225767335" loading="lazy"></p>
+<p>3、格式化磁盘</p>
+<p>4、使用命令进行挂载，但是<strong>重启以后会失效</strong></p>
+<p>5、永久挂载，通过修改/etc/fstab 实现，添加完成以后，执行mount -a即刻生效</p>
+<h2 id="3-磁盘情况查询"><a href="#3-磁盘情况查询" class="headerlink" title="3.磁盘情况查询"></a>3.磁盘情况查询</h2><ul>
+<li><strong>df -h</strong> 查询系统整体磁盘使用情况</li>
+<li><strong>du -h /目录</strong> 查询指定目录的磁盘占用情况，默认为当前目录<ul>
+<li>-s 指定目录占用大小汇总</li>
+<li>-h 带计量单位</li>
+<li>-a 含文件</li>
+<li>-max-depth=1 子目录深度</li>
+<li>-c 列出明细的同时，增加汇总值<img src="/2022/06/02/Linux/1654226050252.png" alt="1654226050252" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+<h1 id="十、网络配置"><a href="#十、网络配置" class="headerlink" title="十、网络配置"></a>十、网络配置</h1><p><img src="/2022/06/02/Linux/1654226368079.png" alt="1654226368079" loading="lazy"></p>
+<ul>
+<li><strong>ipconfig</strong>查看windows的VMnet8网络配置</li>
+<li><strong>ifconfig</strong>查看linux的配置</li>
+<li><strong>ping 目的主机</strong> 测试当前服务器是否可以连接目的主机</li>
+</ul>
+<p>只要在一个网段可以ping通，那么说明了他们可以互相通讯</p>
+<h2 id="1-Linux网络环境配置"><a href="#1-Linux网络环境配置" class="headerlink" title="1.Linux网络环境配置"></a>1.Linux网络环境配置</h2><p><strong>如何获取ip？</strong></p>
+<p>第一种方式(自动获取)：通过界面的来设置自动获取ip，特点：linux启动后会自动获取IP，缺点：每次获取的ip可能不一样</p>
+<p>第二种方式(指定ip)：直接修改配置文件来指定IP，并可以连接到外网(程序员推荐)。</p>
+<p>方法： 编辑 vi /etc/sysconfig/network-scripts/ifcfg-ens33</p>
+<p>要求：将ip地址配置的静态的</p>
+<p><img src="/2022/06/02/Linux/1654226547717.png" alt="1654226547717" loading="lazy"></p>
+<p>重启网络服务或者重启系统生效</p>
+<p><strong>service newwork restart 或者 reboot</strong></p>
+<h2 id="2-设置主机名和hosts映射"><a href="#2-设置主机名和hosts映射" class="headerlink" title="2.设置主机名和hosts映射"></a>2.设置主机名和hosts映射</h2><p><strong>设置主机名</strong></p>
+<p>1.<strong>hostname</strong> 查看主机名</p>
+<p>2.修改文件 /etc/hostname 指定</p>
+<p>3.修改后，重启生效</p>
+<p><strong>设置hosts映射</strong></p>
+<p>windows中 在<strong>C:\Windows\System32\drivers\etc\hosts</strong>中指定</p>
+<p>linux中 在 <strong>/etc/hosts</strong> 文件中指定</p>
+<p><strong>应用实例：用户在浏览器中输入了<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></strong></p>
+<p>1、浏览器先检查浏览器缓存中有没有该域名解析ip地址，有就调用这个IP完成解析，如果没有就检查DNS解析器缓存，如果有则直接返回IP完成解析。这两个缓存可以理解为本地解析器缓存</p>
+<p>2、一般来说当电脑第一次成功访问某网站，在一定时间内，浏览器或操作系统会缓存它的ip地址(DNS解析记录)如在cmd窗口中输入 ipconfig/displaydns 表示DNX域名解析缓存，ipconfig/flushdns表示手动清理DNS缓存</p>
+<p>3、如果本地解析器没有找到对应映射，检查系统中hosts文件中有没有配置对应的ip映射，如果有，则完成解析并缓存</p>
+<p>4、如果均没有，则到域名服务DNS进行解析域<img src="/2022/06/02/Linux/1654240808714.png" alt="1654240808714" loading="lazy"></p>
+<h1 id="十一、进程管理"><a href="#十一、进程管理" class="headerlink" title="十一、进程管理"></a>十一、进程管理</h1><h2 id="1-进程管理"><a href="#1-进程管理" class="headerlink" title="1.进程管理"></a>1.进程管理</h2><p><strong>基本介绍：</strong><br>1.在Linux中，每个执行的程序都被称为一个进程，每一个进程都分配一个ID号（pid、进程号）</p>
+<p>2.每个进程都可以以前台和后台两种方式存在，前台在屏幕上可以看见，后台看不见</p>
+<p>3.一般系统的服务都是以后台进程的方式存在，而且会常驻在系统中，直到关机才结束</p>
+<h3 id="1-1查看进程"><a href="#1-1查看进程" class="headerlink" title="1.1查看进程"></a>1.1查看进程</h3><ul>
+<li><strong>ps [选项]</strong> 查看当前系统中，有哪些正在执行，以及他们的执行情况。可以不加参数<ul>
+<li>ps -a 显示当前终端中所有的进程信息</li>
+<li>ps -u 以用户的格式显示进程信息</li>
+<li>ps -x 显示后台进程运行的参数</li>
+<li>ps -e 显示所有进程</li>
+<li>ps -f 全格式</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/06/02/Linux/1654241002979.png" alt="1654241002979" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654241008934.png" alt="1654241008934" loading="lazy"></p>
+<p><strong>ps详解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USER</td>
+<td>用户信息</td>
+</tr>
+<tr>
+<td>PID</td>
+<td>进程号</td>
+</tr>
+<tr>
+<td>TTY</td>
+<td>完整的终端名称</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>CPU时间，即进程使用CPU的总时间</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>启动进程所用的命令和参数</td>
+</tr>
+<tr>
+<td>%CPU</td>
+<td>进程占用CPU的百分比</td>
+</tr>
+<tr>
+<td>%MEM</td>
+<td>进程占用物理内存的百分比</td>
+</tr>
+<tr>
+<td>VSZ</td>
+<td>进程占用的虚拟内存大小(单位：KB)</td>
+</tr>
+<tr>
+<td>RSS</td>
+<td>进程占用的物理内存大小(单位：KB)</td>
+</tr>
+<tr>
+<td>TT</td>
+<td>终端名称，缩写</td>
+</tr>
+<tr>
+<td>STAT</td>
+<td>进程状态，S-睡眠 s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止</td>
+</tr>
+<tr>
+<td>STARTED</td>
+<td>进程的启动时间</td>
+</tr>
+<tr>
+<td>C</td>
+<td>CPU用于计算执行优先级的因子。数值越大，表明进程是CPU密集型运算，执行优先级会降低;数值越小，表明进程是I/O密集型运算，执行优先级会提高</td>
+</tr>
+<tr>
+<td>COMMAND</td>
+<td>启动进程所用的命令和参数。过长会被截断</td>
+</tr>
+</tbody></table>
+<h3 id="1-2终止进程"><a href="#1-2终止进程" class="headerlink" title="1.2终止进程"></a>1.2终止进程</h3><ul>
+<li><strong>kill 【选项】进程号</strong> 通过进程号杀死进程</li>
+<li><strong>killall 进程名称</strong> 通过进程名称杀死进程，也支持通配符<ul>
+<li><strong>-9 进程号</strong> 表示强迫进程立即停止<img src="/2022/06/02/Linux/1654241191485.png" alt="1654241191485" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3查看进程树"><a href="#1-3查看进程树" class="headerlink" title="1.3查看进程树"></a>1.3查看进程树</h3><ul>
+<li><strong>pstree 【选项】</strong> 可以更加直观的来看进程信息<ul>
+<li>-p ：显示进程的pid</li>
+<li>-u ：显示进程的所属用户<img src="/2022/06/02/Linux/1654241281542.png" alt="1654241281542" loading="lazy"></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-服务（service）管理"><a href="#2-服务（service）管理" class="headerlink" title="2.服务（service）管理"></a>2.服务（service）管理</h2><p>本质就是进程，但是是运行在后台的，通常会监听某个端口，等待其他程序的请求，所以又称为守护进程</p>
+<ul>
+<li><strong>service 服务名 【start|stop|restart|reload|status】</strong> 管理服务</li>
+<li><strong>但是在centos7.0之后，很多服务不再使用service，而是systemctl</strong></li>
+<li>被service指令管理的服务在 /etc/init.d/查看<img src="/2022/06/02/Linux/1654241997752.png" alt="1654241997752" loading="lazy"></li>
+</ul>
+<h3 id="2-1查看服务名"><a href="#2-1查看服务名" class="headerlink" title="2.1查看服务名"></a>2.1查看服务名</h3><ul>
+<li><p>setup -&gt; 系统服务  查看全部服务<img src="/2022/06/02/Linux/1654242796878.png" alt="1654242796878" loading="lazy"></p>
+</li>
+<li><p>ls -l /etc/init.d/ 查看service指令管理的服务</p>
+</li>
+</ul>
+<h3 id="2-2查看运行级别"><a href="#2-2查看运行级别" class="headerlink" title="2.2查看运行级别"></a>2.2查看运行级别</h3><table>
+<thead>
+<tr>
+<th align="left">运行级别</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0级</td>
+<td align="left">系统停机状态，系统默认的运行级别不能设为0，否则不能正常启动</td>
+</tr>
+<tr>
+<td align="left">1级</td>
+<td align="left">单用户工作状态，root权限，用于系统维护，禁止远程登录</td>
+</tr>
+<tr>
+<td align="left">2级</td>
+<td align="left">多用户状态(没有NFS),不支持网络</td>
+</tr>
+<tr>
+<td align="left">3级</td>
+<td align="left">完全的多用户状态(有NFS)，登陆后进入控制台命令行模式**(常用)**</td>
+</tr>
+<tr>
+<td align="left">4级</td>
+<td align="left">系统未使用，保留</td>
+</tr>
+<tr>
+<td align="left">5级</td>
+<td align="left">x11控制台，登陆后进入图像GUI模式**(常用)**</td>
+</tr>
+<tr>
+<td align="left">6级</td>
+<td align="left">系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动</td>
+</tr>
+</tbody></table>
+<h5 id="linux开机流程"><a href="#linux开机流程" class="headerlink" title="linux开机流程"></a>linux开机流程</h5><p>开机 =&gt; BIOS =&gt; /boot =&gt; system进程1 =&gt; 运行级别 =&gt; 运行级对应的服务</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>systemctl get-default</td>
+<td>查看目前的运行级别</td>
+</tr>
+<tr>
+<td>systemctl set-default mult-user.target    /    systemctl set-default graphical.target</td>
+<td>设置运行级别，前者相当于3，后者相当于5</td>
+</tr>
+</tbody></table>
+<h3 id="2-3chkconfig指令"><a href="#2-3chkconfig指令" class="headerlink" title="2.3chkconfig指令"></a>2.3chkconfig指令</h3><ul>
+<li>可以给服务的各个运行级别设置自 启动/关闭</li>
+<li>chkconfig 指令管理的服务在 /etc/init.d 查看</li>
+<li><strong>chkconfig –list [| grep XXX]</strong> 查看服务</li>
+<li><strong>chkconfig 服务名 –list</strong> 查看某一项服务</li>
+<li>**chkconfig –level 5 服务名 on/off ** 将某一个服务在某一个指定的运行级别下是自启动还是关闭自启动</li>
+<li>chkconfig 重新设置服务后自启动或关闭 需要<strong>reboot</strong>生效</li>
+</ul>
+<h3 id="2-4systemctl-管理指令"><a href="#2-4systemctl-管理指令" class="headerlink" title="2.4systemctl 管理指令"></a>2.4systemctl 管理指令</h3><ul>
+<li><strong>systemctl [start| stop | restart | status] 服务名</strong></li>
+<li>systemctl指令管理的服务在 /usr/lib/systemd/system查看</li>
+<li><strong>systemctl list-unit-files | grep 服务名</strong>查看服务开机启动状态 grep可以进行过滤</li>
+<li><strong>systemctl enable 服务名</strong> 设置服务开机启动（自动默认在运行级别3和5都实现）</li>
+<li><strong>systemctl disable 服务名</strong> 关闭服务开机启动（自动默认在运行级别3和5都实现）</li>
+<li><strong>systemctl is-enable 服务名</strong> 查询某个服务是否是自启动</li>
+<li>以上的方式只是临时生效，如果要永久生效那么使用 <strong>ststemctl [enable|disable] 服务名</strong></li>
+</ul>
+<h3 id="2-5打开与关闭指定端口"><a href="#2-5打开与关闭指定端口" class="headerlink" title="2.5打开与关闭指定端口"></a>2.5打开与关闭指定端口</h3><ul>
+<li><strong>firewall-cmd –permanent -add-port=端口号/协议</strong> 打开端口</li>
+<li><strong>firewall-cmd –permanent -remove-port=端口号/协议</strong> 关闭端口</li>
+<li><strong>firewall-cmd –reload</strong>重新载入才能生效</li>
+<li><strong>firewall-cmd –query-port=端口号/协议</strong> 查询端口是否开放</li>
+<li><strong>netstat -anp | more</strong> 可以查询出来端口号对应的协议</li>
+</ul>
+<h2 id="3-动态监控进程"><a href="#3-动态监控进程" class="headerlink" title="3.动态监控进程"></a>3.动态监控进程</h2><p> top与ps很接近，他们都可以显示正在执行的进程。但最大的不同在于top在执行一段时间可以更新正在运行的进程 </p>
+<ul>
+<li><p>top 【选项】</p>
+<ul>
+<li>-d 秒数 指定top命令几秒更新 默认3秒</li>
+<li>-i 使top不显示任何闲置或僵死进程<ul>
+<li>-p 通过指定监控进程id来仅仅监控某个进程的状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>top交互操作(执行top命令之后)</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P</td>
+<td>以CPU使用率排序，默认就是此项</td>
+</tr>
+<tr>
+<td>M</td>
+<td>以内存的使用率排序</td>
+</tr>
+<tr>
+<td>N</td>
+<td>以PID排序</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出top</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="4-监控网络状态"><a href="#4-监控网络状态" class="headerlink" title="4.监控网络状态"></a>4.监控网络状态</h2><ul>
+<li>netstat 【选项】<ul>
+<li>-an 按一定顺序排列输出</li>
+<li>-p 显示那个进程在调用</li>
+</ul>
+</li>
+</ul>
+<h1 id="十二、RPM与YUM"><a href="#十二、RPM与YUM" class="headerlink" title="十二、RPM与YUM"></a>十二、RPM与YUM</h1><h2 id="1-rpm包的管理"><a href="#1-rpm包的管理" class="headerlink" title="1.rpm包的管理"></a>1.rpm包的管理</h2><p><strong>介绍：</strong>npm用于互联网下载包的打包及安装工具，RPM是 RedHat Package Manager(RedHat软件包管理工具）的缩写 </p>
+<h3 id="1-1安装rpm包"><a href="#1-1安装rpm包" class="headerlink" title="1.1安装rpm包"></a>1.1安装rpm包</h3><ul>
+<li><strong>rpm -qa|grep xx</strong> 查询已安装的rpm列表</li>
+<li><strong>rpm -qa</strong> 查询安装的所有rpm软件包</li>
+<li><strong>rpm -q 软件包名</strong> 查询软件包是否安装</li>
+<li><strong>rpm -qi 软件包名</strong> 查询软件包信息</li>
+<li><strong>rpm -ql 软件包名</strong> 查询软件包中的文件</li>
+<li><strong>rpm -qf 文件全路径名</strong> 查询文件所属的软件包</li>
+</ul>
+<p><img src="/2022/06/02/Linux/1654243887209.png" alt="1654243887209" loading="lazy"></p>
+<h3 id="1-2卸载rpm包"><a href="#1-2卸载rpm包" class="headerlink" title="1.2卸载rpm包"></a>1.2卸载rpm包</h3><ul>
+<li><strong>rpm -e RPM包的名称</strong> 卸载rpm包<ul>
+<li><strong>rpm -e –nodeps RPM包的名称</strong> 强行卸载</li>
+</ul>
+</li>
+<li><strong>rpm -ivh RPM包全路径名称</strong> 安装rpm包<ul>
+<li><strong>i=install</strong> 安装</li>
+<li><strong>v=verbose</strong>提示</li>
+<li><strong>h=hash</strong>进度条</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-yum"><a href="#2-yum" class="headerlink" title="2.yum"></a>2.yum</h2><p>yum是一个Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器<strong>自动下载RPM包并且安装</strong>，可以自动处理依赖性关系，并且<strong>一次安装所有依赖的软件包</strong>。</p>
+<ul>
+<li>yum list | grep xx软件列表 查询yum服务器是否有需要安装的软件</li>
+<li>yum install  xxx 下载安装指定的yum包</li>
+</ul>
+<h1 id="十三、搭建JavaEE环境"><a href="#十三、搭建JavaEE环境" class="headerlink" title="十三、搭建JavaEE环境"></a>十三、搭建JavaEE环境</h1><p> 我们需要 <strong>idea tomcat mysql jdk</strong> 四个软件 </p>
+<h2 id="1-安装jdk"><a href="#1-安装jdk" class="headerlink" title="1.安装jdk"></a>1.安装jdk</h2><p><img src="/2022/06/02/Linux/1654246208975.png" alt="1654246208975" loading="lazy"></p>
+<h2 id="2-安装tomcat"><a href="#2-安装tomcat" class="headerlink" title="2.安装tomcat"></a>2.安装tomcat</h2><p><img src="/2022/06/02/Linux/1654246240287.png" alt="1654246240287" loading="lazy"></p>
+<h2 id="3-安装idea"><a href="#3-安装idea" class="headerlink" title="3.安装idea"></a>3.安装idea</h2><p><img src="/2022/06/02/Linux/1654246251332.png" alt="1654246251332" loading="lazy"></p>
+<h2 id="4-安装mysql5-7"><a href="#4-安装mysql5-7" class="headerlink" title="4.安装mysql5.7"></a>4.安装mysql5.7</h2><ol>
+<li><p>新建文件夹/opt/mysql，并cd进去</p>
+</li>
+<li><p>运行wget <a target="_blank" rel="noopener" href="http://dev.mysql.com/get/mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar%EF%BC%8C%E4%B8%8B%E8%BD%BDmysql%E5%AE%89%E8%A3%85%E5%8C%85">http://dev.mysql.com/get/mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar，下载mysql安装包</a> <strong>ps：wget命令是 linux下可以通过网络直接获取一个文件或者软件的命令</strong></p>
+<p>PS：centos7.6自带的类mysql数据库是mariadb，会跟mysql冲突，要先删除。</p>
+</li>
+<li><p>运行<strong>tar -xvf mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar</strong></p>
+</li>
+<li><p>运行<strong>rpm -qa|grep mari</strong>，查询mariadb相关安装包</p>
+</li>
+</ol>
+<p><img src="/2022/06/02/Linux/1654246269644.png" alt="1654246269644" loading="lazy"></p>
+<ol>
+<li>运行<strong>rpm -e –nodeps mariadb-libs</strong>，卸载</li>
+<li>然后开始真正安装mysql，依次运行以下几条</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-common-5.7.26-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-5.7.26-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-5.7.26-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-server-5.7.26-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>运行<strong>systemctl start mysqld.service</strong>，启动mysql</li>
+<li>然后开始设置root用户密码</li>
+</ol>
+<p>Mysql自动给root用户设置随机密码，运行<strong>grep “password” /var/log/mysqld.log</strong>可看到当前密码</p>
+<p><img src="/2022/06/02/Linux/1654246292012.png" alt="1654246292012" loading="lazy"></p>
+<ol>
+<li>运行<strong>mysql -u root -p</strong>，用root用户登录，提示输入密码可用上述的，可以成功登陆进入mysql命令行</li>
+<li>设置root密码，对于个人开发环境，如果要设比较简单的密码（<strong>生产环境服务器要设复杂密码</strong>），可以运行<strong>set global validate_password_policy=0</strong>; 提示密码设置策略</li>
+</ol>
+<p>（validate_password_policy默认值1，）</p>
+<p><img src="/2022/06/02/Linux/1654246307575.png" alt="1654246307575" loading="lazy"></p>
+<ol>
+<li><strong>set password for ‘root‘@’localhost’ =password(‘hspedu100’)</strong>;</li>
+<li>运行<strong>flush privileges</strong>;使密码设置生效</li>
+</ol>
+<h1 id="十四、Shell编程"><a href="#十四、Shell编程" class="headerlink" title="十四、Shell编程"></a>十四、Shell编程</h1><h2 id="1-什么是Shell"><a href="#1-什么是Shell" class="headerlink" title="1.什么是Shell"></a>1.什么是Shell</h2><p> Shell是一个命令行解释器，它为用户提供了一个向Linux内核发生请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至是编写一些程序 </p>
+<p><img src="/2022/06/02/Linux/1654246404311.png" alt="1654246404311" loading="lazy"></p>
+<h2 id="2-Shell脚本的执行方式"><a href="#2-Shell脚本的执行方式" class="headerlink" title="2.Shell脚本的执行方式"></a>2.Shell脚本的执行方式</h2><p><strong>脚本格式要求：</strong></p>
+<p>1、脚本以 <strong>#!/bin/bash</strong> 开头</p>
+<p>2、脚本需要有可执行权限</p>
+<p><strong>脚本的常用执行方式</strong></p>
+<p>方式1：(输入脚本的绝对路径或相对路径)</p>
+<p><strong>说明：</strong>首先要赋予hellowordl.sh脚本的+x权限，在执行脚本</p>
+<p>方式2：(sh+脚本)</p>
+<p><strong>说明：</strong>不用赋予脚本+x权限，直接执行即可。</p>
+<p><img src="/2022/06/02/Linux/1654246427488.png" alt="1654246427488" loading="lazy"></p>
+<h2 id="3-Shell的变量"><a href="#3-Shell的变量" class="headerlink" title="3.Shell的变量"></a>3.Shell的变量</h2><p><strong>Shell变量介绍</strong></p>
+<p>1、分为系统变量和用户自定义变量</p>
+<p>2、系统变量：$HOME、$PWD、$SHELL、$USER等</p>
+<p>3、显示当前shell中所有变量：set</p>
+<p><strong>shell变量的定义</strong></p>
+<p><strong>基本语法：</strong><br>1、定义变量：变量名=值(不能打空格)</p>
+<p>2、撤销变量：unset 变量</p>
+<p>3、声明静态变量：readonly变量，<strong>注意：不能unset</strong></p>
+<p>4、输出变量：echo $变量名 或者echo 变量名=$变量名 或者echo “变量名=$变量名”；第一个输出结果为 变量名的值，后两个输出结果一样 都是 变量名=值</p>
+<p><strong>定义变量的规则：</strong></p>
+<p>1、变量名称可以有字母、数字、下划线组成，但是不能以数字开头</p>
+<p>2、等号两侧不能有空格</p>
+<p>3、变量名称一般习惯为大写，这是一个规范，也就是说哪怕定义的是小写也不会报错，但是 <code>不好</code></p>
+<p><strong>将命令的返回值赋给变量</strong></p>
+<p>1、A=<code>date</code>反引号，运行里面的命令，并且把结果返回给变量A，如果不加反引号，那么就是将date单词赋给A。</p>
+<p>2、A=$(date) 等价于反引号</p>
+<h2 id="4-设置环境变量"><a href="#4-设置环境变量" class="headerlink" title="4.设置环境变量"></a>4.设置环境变量</h2><p>基本语法：</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>export 变量名=变量值</td>
+<td>将shell变量输出为环境变量</td>
+</tr>
+<tr>
+<td>source 配置文件</td>
+<td>让修改后的配置信息立即生效</td>
+</tr>
+<tr>
+<td>echo $变量名</td>
+<td>查询环境变量的值</td>
+</tr>
+</tbody></table>
+<p><img src="/2022/06/02/Linux/1654246693537.png" alt="1654246693537" loading="lazy"></p>
+<p><strong>快速入门：</strong></p>
+<p>1、在/etc/profile文件中定义TOMCAT_HOME环境变量</p>
+<p>2、查看环境变量TMOCAT_HOME的值</p>
+<p>3、在另外一个shell程序中使用TOMCAT_HOME</p>
+<p><code>注意：</code>在输出TOMCA_HOME环境变量前，需要让其生效 <strong>source /etc/profile</strong></p>
+<p>4、shell脚本的多行注释：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:&lt;&lt;! </span><br><span class="line">内容</span><br><span class="line">!</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-位置参数变量"><a href="#5-位置参数变量" class="headerlink" title="5.位置参数变量"></a>5.位置参数变量</h2><p><strong>介绍：</strong></p>
+<p>当我们执行一个shell脚本时，如果希望获取到命令行的参数信息，就可以使用到位置参数变量。</p>
+<p><strong>基本语法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$n</td>
+<td>n为数字，$0代表命令本身，$1-$9代表第一到第九个参数，十以上的参数需要用大括号包含，如${10}</td>
+</tr>
+<tr>
+<td>$*</td>
+<td>这个变量代表命令行中所有的参数，$*把所有的参数看成一个整体</td>
+</tr>
+<tr>
+<td>$@</td>
+<td>这个变量也代表命令行中所有的参数，不过$@把每个参数区分对待</td>
+</tr>
+<tr>
+<td>$#</td>
+<td>这个变量代表命令行中所有参数的个数</td>
+</tr>
+</tbody></table>
+<p>应用实例：</p>
+<p><img src="/2022/06/02/Linux/1654246913916.png" alt="1654246913916" loading="lazy"></p>
+<h2 id="6-预定义变量-了解即可"><a href="#6-预定义变量-了解即可" class="headerlink" title="6.预定义变量(了解即可)"></a>6.预定义变量(了解即可)</h2><p><strong>基本介绍：</strong></p>
+<p>就是shell设计者实现已经定义好的变量，可以直接在shell脚本中使用</p>
+<p><strong>基本语法</strong></p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$$</td>
+<td>当前进程的进程号(PID)</td>
+</tr>
+<tr>
+<td>$!</td>
+<td>后台运行的最后一个进程的进程号(PID)</td>
+</tr>
+<tr>
+<td>$?</td>
+<td>最后一次执行的命令的返回状态。如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0(具体是哪个数，由命令自己决定)，则证明上一个命令执行不正确</td>
+</tr>
+</tbody></table>
+<p>应用实例：<br><img src="/2022/06/02/Linux/1654247065583.png" alt="1654247065583" loading="lazy"></p>
+<h2 id="7-运算符"><a href="#7-运算符" class="headerlink" title="7.运算符"></a>7.运算符</h2><p>基本语法：1、”$((运算式))” 或 “$[运算式]” 或者expr m + n</p>
+<p>2、注意expr运算符之间要有空格，如果希望将 expr 的结果赋给某个变量，使用<code>反引号</code></p>
+<p>3、expr m - n</p>
+<p>4、expr *,/,% 乘，除，取余</p>
+<p><strong>应用实例：</strong></p>
+<p><code>案例一：</code>计算(2+3) X4 的值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">案例一：计算(2+3) X4 的值</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用第一种方式</span></span><br><span class="line">RES1=$(((2+3)*4))</span><br><span class="line">echo &quot;res1=$RES1&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用第二种方式,推荐使用</span></span><br><span class="line">RES2=$[(2+3)*4]</span><br><span class="line">echo &quot;res2=$RES2&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用第三种方式 <span class="built_in">expr</span></span></span><br><span class="line">TEMP=`expr 2 + 3`</span><br><span class="line">RES4=`expr $TEMP \* 4`</span><br><span class="line">echo &quot;temp=$TEMP&quot;</span><br><span class="line">echo &quot;res4=$RES4&quot;</span><br></pre></td></tr></table></figure>
+
+<p> <code>案例二：</code>请求出命令行的两个参数[整数] 的和 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">案例二：请求出命令行的两个参数[整数] 的和</span></span><br><span class="line">SUM=$[$1+$2]</span><br><span class="line">echo &quot;sum=$SUM&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/06/02/Linux/1654247407673.png" alt="1654247407673" loading="lazy"></p>
+<h2 id="8-条件判断"><a href="#8-条件判断" class="headerlink" title="8.条件判断"></a>8.条件判断</h2><p><strong>判断语句：</strong></p>
+<p><strong>基本语法：</strong></p>
+<p>[ condition ]（注意 condition前后要有空格）</p>
+<p>#非空返回true，可使用$?验证（0为true，&gt;1为false）</p>
+<p><strong>应用实例：</strong></p>
+<p>[ hspEdu ] 返回true</p>
+<p>[ ] 返回false</p>
+<p>[ condition ] &amp;&amp; echo OK || echo notok 条件满足，执行后面的语句</p>
+<p><strong>常用判断条件：</strong></p>
+<p><strong>1、字符串比较</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>=</td>
+<td>判断两个字符串是否相等</td>
+</tr>
+</tbody></table>
+<p><strong>2、 两个整数的比较</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-lt</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>-eq</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>不等于</td>
+</tr>
+</tbody></table>
+<p><strong>3、按照文件权限进行判断</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-r</td>
+<td>有读的权限</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>有写的权限</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>有执行的权限</td>
+</tr>
+</tbody></table>
+<p><strong>4、按照文件类型进行判断</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-f</td>
+<td>文件存在并且是一个常规的文件</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>文件存在</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>文件存在并且是一个目录</td>
+</tr>
+</tbody></table>
+<p><strong>应用实例：</strong></p>
+<p><code>案例1：</code>“ok”是否等于”ok”</p>
+<p>判断语句：使用 =</p>
+<p><code>案例2：</code>23是否大于等于22</p>
+<p>判断语句：使用 -ge</p>
+<p><code>案例3：</code>/root/shcode/aaa.text 目录中的文件是否存在</p>
+<p>判断语句： 使用 -f</p>
+<p><strong>代码实现：</strong><img src="/2022/06/02/Linux/1654247583881.png" alt="1654247583881" loading="lazy"></p>
+<p>运行结果：<br><img src="/2022/06/02/Linux/1654247627472.png" alt="1654247627472" loading="lazy"></p>
+<h2 id="9-流程控制"><a href="#9-流程控制" class="headerlink" title="9.流程控制"></a>9.流程控制</h2><h3 id="9-1-if判断"><a href="#9-1-if判断" class="headerlink" title="9.1 if判断"></a>9.1 if判断</h3><p><strong>基本语法：</strong></p>
+<p><img src="/2022/06/02/Linux/1654247696890.png" alt="1654247696890" loading="lazy"></p>
+<p><strong>注意事项：</strong>[ 条件判断式 ]，中括号和条件判断式之间必须有空格</p>
+<p><strong>应用实例：ifCase.sh</strong></p>
+<p><code>案例：</code>请编写一个shell程序，如果输入的参数大于等于60，则输出”及格了“，日过小于60，则输出”不及格“</p>
+<p><strong>代码实现：</strong></p>
+<p><img src="/2022/06/02/Linux/1654247705509.png" alt="1654247705509" loading="lazy"></p>
+<p>结果：<br><img src="/2022/06/02/Linux/1654247714431.png" alt="1654247714431" loading="lazy"></p>
+<h3 id="9-2-case语句"><a href="#9-2-case语句" class="headerlink" title="9.2 case语句"></a>9.2 case语句</h3><p><strong>基本语法：</strong></p>
+<p><img src="/2022/06/02/Linux/1654247766722.png" alt="1654247766722" loading="lazy"></p>
+<p><strong>应用实例 testCase.sh:</strong></p>
+<p><code>案例1：</code>当命令行参数是1时，输出”周一“，是2时，输出”周二“，其他情况输出”other“</p>
+<p><strong>代码实现：</strong></p>
+<p><img src="/2022/06/02/Linux/1654247783537.png" alt="1654247783537" loading="lazy"></p>
+<p>结果：</p>
+<p><img src="/2022/06/02/Linux/1654247793532.png" alt="1654247793532" loading="lazy"></p>
+<h3 id="9-3-for循环"><a href="#9-3-for循环" class="headerlink" title="9.3 for循环"></a>9.3 for循环</h3><p><strong>基本语法1：</strong></p>
+<p><img src="/2022/06/02/Linux/1654247860755.png" alt="1654247860755" loading="lazy"></p>
+<p>应用实例testFor1.sh：</p>
+<p><code>案例1：</code>打印命令行输入的参数 [这里可以看出$*和$@的区别]</p>
+<p><strong>代码实现</strong>：</p>
+<p><img src="/2022/06/02/Linux/1654247886462.png" alt="1654247886462" loading="lazy"></p>
+<p>结果：</p>
+<p><img src="/2022/06/02/Linux/1654247895028.png" alt="1654247895028" loading="lazy"></p>
+<p><strong>基本语法2：</strong></p>
+<p><img src="/2022/06/02/Linux/1654247973470.png" alt="1654247973470" loading="lazy"></p>
+<p><strong>应用实例 testFor2.sh：</strong></p>
+<p><code>案例1：</code>从1加到100的值输出显示</p>
+<p><strong>代码实现：</strong></p>
+<p><img src="/2022/06/02/Linux/1654247989836.png" alt="1654247989836" loading="lazy"></p>
+<p>结果：<br><img src="/2022/06/02/Linux/1654247998886.png" alt="1654247998886" loading="lazy"></p>
+<h3 id="9-4-while循环"><a href="#9-4-while循环" class="headerlink" title="9.4 while循环"></a>9.4 while循环</h3><p><strong>基本语法1：</strong></p>
+<p><img src="/2022/06/02/Linux/1654248065747.png" alt="1654248065747" loading="lazy"></p>
+<p><strong>应用实例：</strong></p>
+<p><code>案例1：</code>从命令行输入一个数n，统计从1+…+n的值是多少？</p>
+<p><strong>代码实现</strong>：</p>
+<p><img src="/2022/06/02/Linux/1654248078000.png" alt="1654248078000" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654248084487.png" alt="1654248084487" loading="lazy"></p>
+<h2 id="10-read读取控制台输入"><a href="#10-read读取控制台输入" class="headerlink" title="10.read读取控制台输入"></a>10.read读取控制台输入</h2><p><strong>基本语法：</strong></p>
+<ul>
+<li>read(选项)(参数)<ul>
+<li>选项：<ul>
+<li>-p：指定读取时的提示符；</li>
+<li>-t：指定读取值时等待的时间(秒)，如果没有在指定的时间内输入，就不再等待了。。</li>
+</ul>
+</li>
+<li>参数：<ul>
+<li>变量：指定读取值的变量名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>应用实例 testRead.sh：</strong></p>
+<p><code>案例1：</code>读取控制台输入一个num值</p>
+<p><code>案例2：</code>读取控制台输入一个sum值，在10s内输入</p>
+<p><strong>代码实现</strong></p>
+<p><img src="/2022/06/02/Linux/1654248129210.png" alt="1654248129210" loading="lazy"></p>
+<h2 id="11-函数"><a href="#11-函数" class="headerlink" title="11.函数"></a>11.函数</h2><h3 id="11-1-函数介绍"><a href="#11-1-函数介绍" class="headerlink" title="11.1 函数介绍"></a>11.1 函数介绍</h3><p> shell编程和其他编程语言一样，有系统函数，也可以自定义函数。系统函数中，我们这里就介绍两个 </p>
+<h3 id="11-2-系统函数"><a href="#11-2-系统函数" class="headerlink" title="11.2 系统函数"></a>11.2 系统函数</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>basename</td>
+<td>返回完成路径最后 / 的部分，常用于获取文件名</td>
+</tr>
+<tr>
+<td>basename [pathname] [suffix]</td>
+<td>basename命令会删掉所有的前缀包括最后一个(‘/‘)字符然后将字符串显示出来</td>
+</tr>
+<tr>
+<td>basename [string] [suffix]</td>
+<td>suffix为后缀，如果suffix被指定了，basename会将pathname或string中的suffix去掉</td>
+</tr>
+</tbody></table>
+<p><strong>basename基本语法</strong></p>
+<ul>
+<li>功能： 返回完成路径最后 / 的部分，常用于获取文件名</li>
+<li>basename [pathname] [suffix]</li>
+<li>basename [string] [suffix] （功能描述：basename命令会删掉所有的前缀包括最后一个(‘/‘)字符没然后将字符串显示出来）</li>
+<li>suffix为后缀，如果suffix被指定了，basename会将pathname或string中的suffix去掉</li>
+</ul>
+<p><strong>应用实例：</strong></p>
+<p><code>案例1：</code>请返回 /home/aaa/test.txt 的”test.txt”部分</p>
+<p><img src="/2022/06/02/Linux/1654248227749.png" alt="1654248227749" loading="lazy"></p>
+<p><strong>dirname基本语法</strong></p>
+<ul>
+<li>功能：返回完整路径最后 / 的前面的部分，常用于返回路径部分</li>
+<li>dirname 文件绝对路径 （功能描述：从给定的包含绝对路径的文件名中取出文件名（非目录的部分），然后返回剩下的路径（目录的部分））</li>
+</ul>
+<p><strong>应用实例：</strong></p>
+<p><code>案例1：</code>请返回 /home/aaa/test.txt 的/home/aaa</p>
+<p><img src="/2022/06/02/Linux/1654248242792.png" alt="1654248242792" loading="lazy"></p>
+<h3 id="11-3-自定义函数"><a href="#11-3-自定义函数" class="headerlink" title="11.3 自定义函数"></a>11.3 自定义函数</h3><p><strong>基本语法：</strong></p>
+<p><img src="/2022/06/02/Linux/1654250007836.png" alt="1654250007836" loading="lazy"></p>
+<p><strong>应用实例：</strong></p>
+<p><code>案例1：</code>计算输入两个参数的和(动态的获取)，getSum</p>
+<p><strong>代码实现：</strong></p>
+<p><img src="/2022/06/02/Linux/1654250048349.png" alt="1654250048349" loading="lazy"></p>
+<h2 id="12-Shell编程综合案例"><a href="#12-Shell编程综合案例" class="headerlink" title="12.Shell编程综合案例"></a>12.Shell编程综合案例</h2><p><strong>需求分析：</strong></p>
+<p>1、每天凌晨 2:30 备份数据库 hspedu 到 /data/backyp/db</p>
+<p>2、备份开始和备份结束能够给出相应的提示信息</p>
+<p>3、备份后的文件要求以备份时间为文件名，并打包成 .tar.gz 的形式</p>
+<p>4、在备份的同时，检查是否有10天前备份的数据库文件，如果有就删除</p>
+<p><strong>数据库备份的步骤示意图：</strong></p>
+<p><img src="/2022/06/02/Linux/1654250148204.png" alt="1654250148204" loading="lazy"></p>
+<p>代码 /usr/sbin/mysql_db.backup.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份文件</span></span><br><span class="line">BACKUP=/data/backup/db</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">当前时间</span></span><br><span class="line">DATETIME=$(date +%Y-%m-%d_%H%M%S)</span><br><span class="line">echo $DATETIME</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">数据库的地址</span></span><br><span class="line">HOST=localhost</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">数据库的用户名</span></span><br><span class="line">DB_USER=****</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">数据库的密码</span></span><br><span class="line">DB_PW=****</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份的数据库名</span></span><br><span class="line">DATABASE=hspedu</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建备份目录，如果不存在，就创建</span></span><br><span class="line">[ ! -d &quot;$&#123;BACKUP&#125;/$&#123;DATETIME&#125;&quot; ] &amp;&amp; mkdir -p &quot;$&#123;BACKUP&#125;/$&#123;DATETIME&#125;&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份数据库</span></span><br><span class="line">mysqldump -u$&#123;DB_USER&#125; -p$&#123;DB_PW&#125; --host =$&#123;HOST&#125; -q -R --databases $&#123;DATABASE&#125; | gzip &gt; $&#123;BACKUP&#125;/$&#123;DATETIME&#125;/$DATETIME.sql.gz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">将文件处理成 tar.gz的形式</span></span><br><span class="line">cd $&#123;BACKUP&#125;</span><br><span class="line">tar -zcvf $DATETIME.tar.gz $&#123;DATETIME&#125;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除对应的备份目录</span></span><br><span class="line">rm -rf $&#123;BACKUP&#125;/$&#123;DATETIME&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除10天前的备份文件</span></span><br><span class="line">find $&#123;BACKUP&#125; -atime +10 -name &quot;*.tar.gz&quot; -exec rm -rf &#123;&#125; \;</span><br><span class="line">echo &quot;备份数据库$&#123;DATABASE&#125; 成功~&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加定时任务调度：</strong></p>
+<p>1.crontab -e</p>
+<p><img src="/2022/06/02/Linux/1654250501853.png" alt="1654250501853" loading="lazy"></p>
+<p>2.在界面输入30 2 * * * /usr/sbin/mysql_db_backup.sh</p>
+<p><img src="/2022/06/02/Linux/1654250545377.png" alt="1654250545377" loading="lazy"></p>
+<h1 id="十五、日志管理"><a href="#十五、日志管理" class="headerlink" title="十五、日志管理"></a>十五、日志管理</h1><h2 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1.基本介绍"></a>1.基本介绍</h2><p>1、日志文件是重要的系统信息文件，记录了许多 <strong>重要的系统事件</strong></p>
+<p>2、日志对于 <strong>安全来说也很重要</strong>，可以通过日志来检查错误发生的原因</p>
+<p>3、<strong>日志是用来记录重大事件的工具</strong></p>
+<h2 id="2-系统常用的日志"><a href="#2-系统常用的日志" class="headerlink" title="2.系统常用的日志"></a>2.系统常用的日志</h2><p>/var/log/ 目录就是系统日志文件的保存位置</p>
+<p><img src="/2022/06/02/Linux/1654250604178.png" alt="1654250604178" loading="lazy"></p>
+<h2 id="3-日志管理服务rsyslogd"><a href="#3-日志管理服务rsyslogd" class="headerlink" title="3.日志管理服务rsyslogd"></a>3.日志管理服务rsyslogd</h2><p>Centos7.6日志服务是rsyslogd，Centos6.x日志服务是syslogd，rsyslogd更强大</p>
+<p><img src="/2022/06/02/Linux/1654255566678.png" alt="1654255566678" loading="lazy"></p>
+<p><strong>应用实例</strong></p>
+<p><strong>ps aux | grep “rsyslogd” | grep -v “gerp”</strong> 查询linux中的rsyslogd服务是否启动</p>
+<p><strong>systemctl list-unit-files | grep rsyslog</strong> 查询rsyslogd服务的自启动态</p>
+<p><img src="/2022/06/02/Linux/1654255614561.png" alt="1654255614561" loading="lazy"></p>
+<p><strong>配置文件相关的信息说明</strong></p>
+<p>编辑文件时的格式为: * . * 存放日志文件<br>其中第一个 * 代表日志类型，第二个 * 代表日志级别</p>
+<p>1.日志类型分为:</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auth</td>
+<td>##pam产生的日志</td>
+</tr>
+<tr>
+<td>authpriv</td>
+<td>##ssh、ftp等登录信息的验证信息</td>
+</tr>
+<tr>
+<td>corn</td>
+<td>##时间任务相关</td>
+</tr>
+<tr>
+<td>kern</td>
+<td>##内核</td>
+</tr>
+<tr>
+<td>lpr</td>
+<td>##打印</td>
+</tr>
+<tr>
+<td>mail</td>
+<td>##邮件</td>
+</tr>
+<tr>
+<td>mark(syslog)-rsyslog</td>
+<td>##服务内部的信息，时间标识</td>
+</tr>
+<tr>
+<td>news</td>
+<td>##新闻组</td>
+</tr>
+<tr>
+<td>user</td>
+<td>##用户程序产生的相关信息</td>
+</tr>
+<tr>
+<td>uucp</td>
+<td>##unix to nuix copy主机之间相关的通信</td>
+</tr>
+<tr>
+<td>local 1-7</td>
+<td>##自定义的日志设备</td>
+</tr>
+</tbody></table>
+<p>2.日志级别分为</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>debug</td>
+<td>##有调试信息的，日志通信最多</td>
+</tr>
+<tr>
+<td>info</td>
+<td>##—般信息日志，最常用</td>
+</tr>
+<tr>
+<td>notice</td>
+<td>##最具有重要性的普通条件的信息</td>
+</tr>
+<tr>
+<td>warning</td>
+<td>##警告级别</td>
+</tr>
+<tr>
+<td>err</td>
+<td>##错误级别，阻止某个功能或者模块不能正常工作的信息</td>
+</tr>
+<tr>
+<td>crit</td>
+<td>##严重级别，阻止整个系统或者整个软件不能正常工作的信息</td>
+</tr>
+<tr>
+<td>alert</td>
+<td>##需要立刻修改的信息</td>
+</tr>
+<tr>
+<td>emerg</td>
+<td>##内核崩溃等重要信息</td>
+</tr>
+<tr>
+<td>none</td>
+<td>##什么都不记录</td>
+</tr>
+</tbody></table>
+<p><strong>注意：从上到下，级别从低到高，记录信息越来越少</strong></p>
+<p>由日志服务rsyslogd记录的日志文件，日志文件的格式包含以下4列:</p>
+<p>事件产生的时间</p>
+<p>产生事件的服务器的主机名</p>
+<p>产生事件的服务名或程序名</p>
+<p>事件的具体信息</p>
+<p><strong>日志如何查看实例</strong></p>
+<p>查看/var/log/secure日志，这个日志中记录的是用户验证和授权方面的信息</p>
+<p><img src="/2022/06/02/Linux/1654255705887.png" alt="1654255705887" loading="lazy"></p>
+<p><strong>增加自定义的日志步骤</strong></p>
+<p>1.vim /etc/rsyslog.conf</p>
+<p><img src="/2022/06/02/Linux/1654255744343.png" alt="1654255744343" loading="lazy"></p>
+<p>2.创建自定义的日志文件</p>
+<p><img src="/2022/06/02/Linux/1654255759828.png" alt="1654255759828" loading="lazy"></p>
+<p>3.重启linux查看/var/log/hsp.log文件</p>
+<p><img src="/2022/06/02/Linux/1654255804293.png" alt="1654255804293" loading="lazy"></p>
+<h2 id="4-日志轮替"><a href="#4-日志轮替" class="headerlink" title="4.日志轮替"></a>4.日志轮替</h2><p>日志轮替就是把旧的日志文件移动并改名，同时建立新的空日志文件，当旧的日志文件超出保存的范围之后，就会进行删除</p>
+<p><strong>日志轮替文件命名</strong></p>
+<ol>
+<li>centos7使用logrotate进行日志轮替管理，要想改变日志轮替文件名字，通过/etc/logrotate.conf配置文件中“dateext”参数:</li>
+<li>如果配置文件中有“dateext”参数，那么日志会用<strong>日期</strong>来作为日志文件的后级，例如“secure-20201010”。这样日志文件名不会重叠，也就不需要日志文件的改名，只需要指定保存日志个数，删除多余的日志文件即可。</li>
+<li>如果配置文件中没有“dateext”参数，日志文件就需要进行改名了。当第一次进行日志轮替时，当前的<strong>“secure”日志会自动改名为”secure.1”，然后新建”secure”日志，用来保存新的日志。</strong>当第二次进行日志轮替时，“secure.1”会自动改名为“secure.2”，当前的“secure”日志会自动改名为”secure.1”，然后也会新建“secure”日志，用来保存新的日志，以此类推。</li>
+</ol>
+<p><strong>logrotate配置文件</strong></p>
+<p><img src="/2022/06/02/Linux/1654255896071.png" alt="1654255896071" loading="lazy"></p>
+<p><strong>参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>daily</td>
+<td>日志的轮替周期是每天</td>
+</tr>
+<tr>
+<td>weekly</td>
+<td>日志的轮替周期是每周</td>
+</tr>
+<tr>
+<td>monthly</td>
+<td>日志的轮替周期是每月</td>
+</tr>
+<tr>
+<td>rotate数字</td>
+<td>保留的白志文件的个数。0指没有备份</td>
+</tr>
+<tr>
+<td>compress</td>
+<td>日志轮替时，旧的日志进行压缩</td>
+</tr>
+<tr>
+<td>create mode owner group</td>
+<td>建立新日志，同时指定新日志的权限与所有者和所属组</td>
+</tr>
+<tr>
+<td>mail address</td>
+<td>当日志轮替时，输出内容通过邮件发送到指定的邮件地址。</td>
+</tr>
+<tr>
+<td>missingok</td>
+<td>如果日志不存在，则忽略该日志的警告信息</td>
+</tr>
+<tr>
+<td>notifempty</td>
+<td>如果日志为空文件，则不进行日志轮替</td>
+</tr>
+<tr>
+<td>minsize大小</td>
+<td>日志轮替的最小值。也就是日志一定要达到这个最小值才会轮替，否则就算时间达到也不轮替</td>
+</tr>
+<tr>
+<td>size大小</td>
+<td>日志只有大于指定大小才进行日志轮替，而不是按照时间轮替。</td>
+</tr>
+<tr>
+<td>dateext</td>
+<td>使用日期作为日志轮替文件的后缀。</td>
+</tr>
+<tr>
+<td>sharedscripts</td>
+<td>在此关键字之后的脚本只执行一次。</td>
+</tr>
+<tr>
+<td>prerotate/endscript</td>
+<td>在日志轮替之前执行脚本命令。</td>
+</tr>
+<tr>
+<td>postrotate/endscript</td>
+<td>在日志轮替之后执行脚本命令。</td>
+</tr>
+</tbody></table>
+<p><strong>将自己的日志加入日志轮替的方法：</strong></p>
+<p>第一种方法是直接在 /etc/logrotate.conf 配置文件中写入该日志的轮替策略<br>第二种方法是在 /etc/logrotate.d/ 目录中新建立该日志的轮替文件，在该轮替文件中写入正确的轮替策略，因为该目录中的文件都会被 “include” 到主配置文件中，所以也可以把日志加入轮替。<br><strong>推荐使用第二种方法</strong>，因为系统中需要轮替的日志非常多，如果全都直接写入/etc/logrotate.conf配置文件，那么这个文件的可管理性就会非常差，不利于此文件的维护。</p>
+<p>[<img src="/2022/06/02/Linux/image-20220530122433278.png" alt="img" loading="lazy"></p>
+<p><strong>日志轮替机制原理</strong></p>
+<p>日志轮替之所以可以在指定的时间备份日志，是依赖系统定时任务。在/etc/cron.daily/目录，就会发现这个目录中是有logrotate文件(可执行)，logrotate通过这个文件依赖定时任务执行的。</p>
+<p>[<img src="/2022/06/02/Linux/image-20220530110237896.png" alt="img" loading="lazy"></p>
+<p>[<img src="/2022/06/02/Linux/image-20220530094005686.png" alt="原理示意图" loading="lazy"></p>
+<h1 id="十六、定制自己的Linux系统"><a href="#十六、定制自己的Linux系统" class="headerlink" title="十六、定制自己的Linux系统"></a>十六、定制自己的Linux系统</h1><p><strong>基本原理</strong></p>
+<p><strong>启动流程介绍：</strong></p>
+<p>1、首先Linux要通过自检，检查硬件设备有没有故障</p>
+<p>2、如果有多快启动盘的话，需要在BIOS中选择启动磁盘</p>
+<p>3、启动MBR中的bootloader引导程序</p>
+<p>4、加载所有内核</p>
+<p>5、执行所有进程的父进程、老祖宗system</p>
+<p>6、欢迎界面</p>
+<p>在Linux的启动流程中，加载内核文件时关键文件：</p>
+<p>1）kernel文件：vmlinuz-3.10.0-957.el7.x86_64</p>
+<p>2）initrd文件：inittamfs-3.10.0-957.e;7.x86_64.img</p>
+<hr>
+<p><strong>思路分析</strong></p>
+<p>1、在现有的Linux系统(centos7.6)上加一块硬盘/dev/sdb，在硬盘上分两个分区，一个是/boot，一个是/，并将其格式化。需要明确的是，现在加的这个硬盘在现有的Linux系统中是/dev/sdb，但是，当我们把东西全部设置好时，要把这个硬盘拔除，放在新系统上，此时，就是/dev/sda</p>
+<p>2、在/dev/sdb硬盘上，将其打造成独立的Linux系统，里面的所有文件是需要拷贝进去的。</p>
+<p>3、作为能独立运行的Linux系统，内核是一定不能少，要把内核文件和initramfs文件也一起拷到/dev/sdb上</p>
+<p>4、自制Linux就完成，创建一个新的linux虚拟机，将其硬盘指向我们创建的硬盘，启动即可。</p>
+<p><strong>示意图：</strong></p>
+<p><img src="/2022/06/02/Linux/1654255942221.png" alt="1654255942221" loading="lazy"></p>
+<p>制作流程：<br>1.分出硬盘：<br>1.）首先，在现有的Linux添加一块大小为20G的硬盘</p>
+<p><img src="/2022/06/02/Linux/1654256000449.png" alt="1654256000449" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654256007000.png" alt="1654256007000" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654256013753.png" alt="1654256013753" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654256019086.png" alt="1654256019086" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654256025087.png" alt="1654256025087" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654256031232.png" alt="1654256031232" loading="lazy"></p>
+<p><img src="/2022/06/02/Linux/1654256037574.png" alt="1654256037574" loading="lazy"></p>
+<p>2.分区</p>
+<p>1.）执行fdisk /dev/sdb</p>
+<p><img src="/2022/06/02/Linux/1654256061644.png" alt="1654256061644" loading="lazy"></p>
+<p>输入 <code>n</code> 添加新的分区，输入 <code>p</code>将分区分为 primary</p>
+<p>分区号直接回车 默认为第一块</p>
+<p>起始扇区直接回车 使用默认值</p>
+<p>第一块分区给予 +500M 也就是将来对应的boot分区</p>
+<p><img src="/2022/06/02/Linux/1654256072496.png" alt="1654256072496" loading="lazy"></p>
+<p>输入 <code>n</code> 添加新的分区，输入 <code>p</code>将分区分为 primary</p>
+<p>分区号直接回车 默认为第二块</p>
+<p>起始扇区直接回车 使用默认值</p>
+<p>将剩下的所有内存给予第二块分区</p>
+<p><img src="/2022/06/02/Linux/1654256082023.png" alt="1654256082023" loading="lazy"></p>
+<p>最后输入w写入分区</p>
+<p><strong>3.对/dev/sdb的分区进行格式化</strong></p>
+<p><img src="/2022/06/02/Linux/1654256114098.png" alt="1654256114098" loading="lazy"></p>
+<p><strong>4.挂载</strong></p>
+<p><img src="/2022/06/02/Linux/1654256122464.png" alt="1654256122464" loading="lazy"></p>
+<p><strong>5.安装grub，内核文件拷贝纸目标】磁盘</strong></p>
+<p>安装grub</p>
+<p><img src="/2022/06/02/Linux/1654256170714.png" alt="1654256170714" loading="lazy"></p>
+<p>查看是否安装成功二进制</p>
+<p><img src="/2022/06/02/Linux/1654256188422.png" alt="1654256188422" loading="lazy"></p>
+<p><strong>6.修改grub2/grub.cfg 文件</strong></p>
+<p><img src="/2022/06/02/Linux/1654256212958.png" alt="1654256212958" loading="lazy"></p>
+<p>在grub.cfg文件中 , 红色部分用 上面 sdb1 的 UUID替换，蓝色部分用 sdb2的UUID来替换, 紫色部分是添加的，表示</p>
+<p>selinux给关掉，同时设定一下init，告诉内核不要再去找这个程序了，不然开机的时候会出现错误的</p>
+<p><img src="/2022/06/02/Linux/1654256223118.png" alt="1654256223118" loading="lazy"></p>
+<p><strong>7.创建目标主机根文件系统</strong></p>
+<p><img src="/2022/06/02/Linux/1654256237481.png" alt="1654256237481" loading="lazy"></p>
+<p><strong>8.拷贝需要的bash和库文件给新的系统使用</strong></p>
+<p><img src="/2022/06/02/Linux/1654256263287.png" alt="1654256263287" loading="lazy"></p>
+<p><strong>9、 现在我们就可以创建一个新的虚拟机，然后将默认分配的硬盘移除掉，指向我们刚刚创建的磁盘即可</strong></p>
+<p><strong>10、 很多指令都不能使用，比如 ls , reboot 等，可以将需要的指令拷贝到对应的目录即可</strong></p>
+<p><strong>11、如果要拷贝指令，重新进入到原来的 linux系统拷贝相应的指令即可，比如将 /bin/ls 拷贝到 /mnt/sysroot/bin 将/sbin/reboot 拷贝到 /mnt/sysroot/sbin</strong></p>
+<p><img src="/2022/06/02/Linux/1654256274315.png" alt="1654256274315" loading="lazy"></p>
+<p><strong>12、再重新启动新的min linux系统，就可以使用 ls , reboot 指令了</strong></p>
+<h1 id="十七、Linux内核源码目录"><a href="#十七、Linux内核源码目录" class="headerlink" title="十七、Linux内核源码目录"></a>十七、Linux内核源码目录</h1><p>Linux内核源码的目录介绍：<img src="/2022/06/02/Linux/1654307097381.png" alt="1654307097381" loading="lazy"></p>
+<p>main.c说明：（在init中只有一个main.c文件）</p>
+<p><img src="/2022/06/02/Linux/1654307123737.png" alt="1654307123737" loading="lazy"></p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/alipay.jpg"><img loading="lazy" src="/images/alipay.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/wechatpay.png"><img loading="lazy" src="/images/wechatpay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>翔仔</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/2022/06/02/Linux/" title="Linux">http://example.com/2022/06/02/Linux/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2022/06/09/markdown%E8%AF%AD%E6%B3%95/" rel="prev" title="markdown语法"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">markdown语法</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/06/02/Spring%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="Spring常见知识点"><span class="post-nav-text">Spring常见知识点</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2022 </span><span class="with-love" id="animate" title="云游君的赞助者们"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 翔仔</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.4.2</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.8.11</span></div><div class="live-time"><span>本博客已运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2022-04-10T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div></body></html>
