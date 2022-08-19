@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="翔仔"><meta name="copyright" content="翔仔"><meta name="generator" content="Hexo 5.4.2"><meta name="theme" content="hexo-theme-yun"><title>JavaIO模型 | 翔仔的博客</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.2.4/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/@unocss/runtime/mini.global.js"></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"example.com","root":"/","title":"翔仔的小站","version":"1.8.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]},"vendors":{"darken":"https://cdn.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="I&#x2F;O简介 什么是I&#x2F;O?  i&#x2F;o,即输入&#x2F;输出。 计算机角度解读I&#x2F;O。 根据冯.诺伊曼结构，计算机结构分为五大部分：运算器、控制器、存储器、输入设备、输出设备。   输入设备（比如键盘）和输出设备（比如显示器）都属于外部设备。网卡、硬盘这种既可以属于输入设备，也可以属于输出设备。 输入设备向计算机输入数据，输出设备接收计算机输出的数据。 应用程序角度解读I&#x2F;O 一个地址的内存空间分为用户空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaIO模型">
+<meta property="og:url" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="翔仔的博客">
+<meta property="og:description" content="I&#x2F;O简介 什么是I&#x2F;O?  i&#x2F;o,即输入&#x2F;输出。 计算机角度解读I&#x2F;O。 根据冯.诺伊曼结构，计算机结构分为五大部分：运算器、控制器、存储器、输入设备、输出设备。   输入设备（比如键盘）和输出设备（比如显示器）都属于外部设备。网卡、硬盘这种既可以属于输入设备，也可以属于输出设备。 输入设备向计算机输入数据，输出设备接收计算机输出的数据。 应用程序角度解读I&#x2F;O 一个地址的内存空间分为用户空间">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/20190624122126398.jpeg">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/6a9e704af49b4380bb686f0c96d33b81_tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-1.png">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-2.png">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/0f483f2437ce4ecdb180134270a00144_tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-3.png">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-4.png">
+<meta property="og:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/1492928105791_3.png">
+<meta property="article:published_time" content="2022-08-17T15:27:05.000Z">
+<meta property="article:modified_time" content="2022-08-19T03:24:26.949Z">
+<meta property="article:author" content="翔仔">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/20190624122126398.jpeg"><script>(function() {
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="翔仔"><img width="96" loading="lazy" src="/images/tx.jpg" alt="翔仔"><span class="site-author-status" title="不想上学">😭</span></a><div class="site-author-name"><a href="/about/">翔仔</a></div><span class="site-name">翔仔的博客</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="我的主页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">27</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">18</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=910426929&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/YunYouJun" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="985391895@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">I&#x2F;O简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4%E5%92%8C%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4"><span class="toc-number">2.</span> <span class="toc-text">用户空间和内核空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO%E6%A8%A1%E5%9E%8B%E7%AE%80%E4%BB%8B"><span class="toc-number">3.</span> <span class="toc-text">IO模型简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9EI-O%EF%BC%88BIO%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">同步阻塞I&#x2F;O（BIO）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%BC%8FI-O"><span class="toc-number">3.2.</span> <span class="toc-text">同步非阻塞式I&#x2F;O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%EF%BC%88NIO%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">I&#x2F;O多路复用（NIO）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8I-O"><span class="toc-number">3.4.</span> <span class="toc-text">信号驱动I&#x2F;O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5I-O%EF%BC%88AIO%EF%BC%89"><span class="toc-number">3.5.</span> <span class="toc-text">异步I&#x2F;O（AIO）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-O%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83"><span class="toc-number">3.6.</span> <span class="toc-text">I&#x2F;O模型比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5I-O%E4%B8%8E%E5%BC%82%E6%AD%A5I-O"><span class="toc-number">3.7.</span> <span class="toc-text">同步I&#x2F;O与异步I&#x2F;O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83"><span class="toc-number">3.8.</span> <span class="toc-text">五大模型比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">IO多路复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select%E3%80%81poll%E3%80%81epoll"><span class="toc-number">4.1.</span> <span class="toc-text">select、poll、epoll</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epoll%E7%9A%84%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">epoll的操作过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">4.3.</span> <span class="toc-text">IO多路复用工作模式和应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epoll%E6%80%BB%E7%BB%93"><span class="toc-number">4.4.</span> <span class="toc-text">epoll总结</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="翔仔"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="翔仔的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">JavaIO模型</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-08-17 23:27:05" itemprop="dateCreated datePublished" datetime="2022-08-17T23:27:05+08:00">2022-08-17</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2022-08-19 11:24:26" itemprop="dateModified" datetime="2022-08-19T11:24:26+08:00">2022-08-19</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%90%8E%E7%AB%AF/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">后端</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/java/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">java</span></a></span></div><div class="post-author"><span class="author-name">翔仔</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h2 id="I-O简介"><a href="#I-O简介" class="headerlink" title="I/O简介"></a>I/O简介</h2><blockquote>
+<p>什么是I/O?</p>
+</blockquote>
+<p>i/o,即输入/输出。</p>
+<p><strong>计算机角度解读I/O</strong>。</p>
+<p>根据冯.诺伊曼结构，计算机结构分为五大部分：运算器、控制器、存储器、输入设备、输出设备。 <img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/20190624122126398.jpeg" alt="冯诺依曼体系结构" loading="lazy"> </p>
+<p>输入设备（比如键盘）和输出设备（比如显示器）都属于外部设备。网卡、硬盘这种既可以属于输入设备，也可以属于输出设备。</p>
+<p>输入设备向计算机输入数据，输出设备接收计算机输出的数据。</p>
+<p><strong>应用程序角度解读I/O</strong></p>
+<p>一个地址的内存空间分为<strong>用户空间和内核空间。</strong></p>
+<p>当进行io操作时，由于没有执行权限，只能发起系统调用请求操作系统帮忙完成。因此，想要执行io操作时，通过系统调用间接访问内核空间。</p>
+<p> <strong>从应用程序的视角来看的话，我们的应用程序对操作系统的内核发起 IO 调用（系统调用），操作系统负责的内核执行具体的 IO 操作。也就是说，我们的应用程序实际上只是发起了 IO 操作的调用而已，具体 IO 的执行是由操作系统的内核来完成的。</strong> </p>
+<h2 id="用户空间和内核空间"><a href="#用户空间和内核空间" class="headerlink" title="用户空间和内核空间"></a>用户空间和内核空间</h2><p>平常运行的程序都在用户空间。而内核空间独立于普通应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。内核空间一般进行和系统资源有关的操作，如文件管理、内存管理、进程通信等。也就是说应用程序的io操作依赖于内核空间。</p>
+<blockquote>
+<p>为什么区分内核空间和用户空间</p>
+</blockquote>
+<p>在 CPU 的所有指令中，有些指令是非常危险的，如果错用，将导致系统崩溃，比如清内存、设置时钟等。如果允许所有的程序都可以使用这些指令，那么系统崩溃的概率将大大增加。</p>
+<p>所以，CPU 将指令分为特权指令和非特权指令，对于那些危险的指令，只允许操作系统及其相关模块使用，普通应用程序只能使用那些不会造成灾难的指令。</p>
+<hr>
+<p>但用户空间不能直接访问内核空间，而是通过内核提供的接口完成的，比如应用程序要读取磁盘文件，它会向内核发起一个“系统调用”来告诉内核要进行的操作。</p>
+<p> 其实就是通过一个<strong>特殊的指令</strong>让进程从<strong>用户态</strong>进入到<strong>内核态</strong>(到了内核空间)，在内核空间中，CPU 可以执行任何的指令，当然也包括从磁盘上读取数据。具体过程是先把数据读取到<strong>内核空间</strong>中，然后再把数据<strong>拷贝</strong>到<strong>用户空间</strong>并从内核态切换到用户态。 </p>
+<blockquote>
+<p>用户空间进入内核空间：系统调用、软中断、硬件中断</p>
+</blockquote>
+<h2 id="IO模型简介"><a href="#IO模型简介" class="headerlink" title="IO模型简介"></a>IO模型简介</h2><p>一个输入操作分为两个部分：</p>
+<ul>
+<li>等待数据准备</li>
+<li>从内核向用户空间复制数据</li>
+</ul>
+<p>对于一个套接字上的输入操作，第一步等待数据从网络到达，被复制到内核中的缓冲区，第二步把数据复制到应用进程缓冲区</p>
+<blockquote>
+<p>阻塞io与非阻塞io区别</p>
+</blockquote>
+<p>等待数据准备期间，用户进程阻塞则为阻塞io；而非阻塞io可以执行其他指令，但需要一致轮询数据是否准备就绪</p>
+<blockquote>
+<p>同步io和异步io</p>
+</blockquote>
+<p>在第二步数据从内核复制到用户进程期间，进程处于阻塞视为同步io；异步io，进程继续执行其他指令，等io操作结束会收到通知</p>
+<h3 id="同步阻塞I-O（BIO）"><a href="#同步阻塞I-O（BIO）" class="headerlink" title="同步阻塞I/O（BIO）"></a>同步阻塞I/O（BIO）</h3><blockquote>
+<p>两个阶段都被阻塞</p>
+</blockquote>
+<p>应用进程被阻塞直到数据复制到用户空间缓冲区才返回。</p>
+<p> recvfrom 用于接收 Socket 传来的数据，并复制到应用进程的缓冲区 buf 中。这里把 recvfrom() 当成系统调用。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssize_t <span class="title function_">recvfrom</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">void</span> *buf, size_t len, <span class="type">int</span> flags, struct sockaddr *src_addr, socklen_t *addrlen)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当用户进程调用了recvfrom这个系统调用，内核就开始了io的第一个阶段：数据准备（对于网络IO来说，一开始数据并没有到达，比如还没收到一个完整的UDP包，这个时候就需要等待数据准备）。 这个过程需要等待，也就是说数据被拷贝到操作系统内核的缓冲区中是需要一个过程的。而在用户进程这边，整个进程会被阻塞 。当数据准备好后，内核会将数据从内核空间的缓存中拷贝到用户空间，然后用户进程回复正常运行。</p>
+<p> <img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/6a9e704af49b4380bb686f0c96d33b81_tplv-k3u1fbpfcp-watermark.image" alt="图源：《深入拆解Tomcat &amp; Jetty》" loading="lazy"> </p>
+<p>在客户端连接数量不高的情况下适用。</p>
+<h3 id="同步非阻塞式I-O"><a href="#同步非阻塞式I-O" class="headerlink" title="同步非阻塞式I/O"></a>同步非阻塞式I/O</h3><blockquote>
+<p>数据准备阶段，用户进程不断发起询问</p>
+</blockquote>
+<p>当用户进程发起系统调用时，如果内核中数据还没准备好，就不会阻塞用户进程，而是立刻返回一个error。从用户空间讲，它发起系统调用，并不需要等待，而是马上收到结果。在用户进程判断结果是error时，会再次发起系统调用，一个内核中数据准备就绪，并再次收到用户进程的调用，就会阻塞用户进程然后把数据拷贝到用户进程。</p>
+<p> <img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-1.png" alt="img" loading="lazy"> </p>
+<p> 这种 IO 模型同样存在问题：<strong>应用程序不断进行 I/O 系统调用轮询数据是否已经准备好的过程是十分消耗 CPU 资源的。</strong> </p>
+<h3 id="I-O多路复用（NIO）"><a href="#I-O多路复用（NIO）" class="headerlink" title="I/O多路复用（NIO）"></a>I/O多路复用（NIO）</h3><p>使用select或epoll等待数据就绪，并且可以等待多个套接字中的任何一个变为可读，这一过程会被<strong>阻塞</strong>，当某一个套接字可读时返回，之后再 使用 recvfrom 把数据从内核复制到进程中。 </p>
+<p><strong>基本原理</strong>是epoll、select、poll会不断的轮询所负责的socket，当某个socket有数据到达，就通知用户进程</p>
+<p>它可以让单个进程拥有处理多个I/O事件的能力。又称为事件驱动I/O。如果一个web服务器没有i/o复用， 那么每个socket就需要一个线程处理。而io复用不需要进程线程的创建和切换的开销，系统开销小。 </p>
+<p><img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-2.png" alt="img" loading="lazy"> </p>
+<p>当<strong>用户进程调用了select，那么整个进程会被block</strong>，同时内核会监视所有select负责的socket，当任何一个socket的数据准备好了，select就会返回，此时进程在进行系统调用，将数据拷贝到用户进程</p>
+<p>I/O多路复用模型，通过减少无效的系统调用，减少了对cpu的资源消耗。</p>
+<p> Java 中的 NIO ，有一个非常重要的<strong>选择器 ( Selector )</strong> 的概念，也可以被称为 <strong>多路复用器</strong>。通过它，只需要一个线程便可以管理多个客户端连接。当客户端数据到了之后，才会为其服务。  <img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/0f483f2437ce4ecdb180134270a00144_tplv-k3u1fbpfcp-watermark.image" alt="img" loading="lazy"> </p>
+<h3 id="信号驱动I-O"><a href="#信号驱动I-O" class="headerlink" title="信号驱动I/O"></a>信号驱动I/O</h3><p>应用进程使用 sigaction 系统调用，内核<strong>立即返回</strong>，应用进程可以<strong>继续执行，</strong>也就是说等待数据阶段应用进程是<strong>非阻塞</strong>的。内核在数据到达时向应用进程发送 SIGIO 信号，应用进程收到之后在信号处理程序中调用 recvfrom 将数据从内核复制到应用进程中。</p>
+<p>相比于非阻塞式 I/O 的轮询方式，信号驱动 I/O 的 CPU 利用率更高。 <img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-3.png" alt="img" loading="lazy"> </p>
+<h3 id="异步I-O（AIO）"><a href="#异步I-O（AIO）" class="headerlink" title="异步I/O（AIO）"></a>异步I/O（AIO）</h3><p>进行 aio_read 系统调用会立即返回，应用进程继续执行，不会被阻塞，内核会在所有操作完成之后向应用进程发送信号。</p>
+<p>异步 I/O 与信号驱动 I/O 的<strong>区别</strong>在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。 <img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/java-io-model-4.png" alt="img" loading="lazy"> </p>
+<h3 id="I-O模型比较"><a href="#I-O模型比较" class="headerlink" title="I/O模型比较"></a>I/O模型比较</h3><h3 id="同步I-O与异步I-O"><a href="#同步I-O与异步I-O" class="headerlink" title="同步I/O与异步I/O"></a>同步I/O与异步I/O</h3><ul>
+<li>同步I/O：应用进程再调用 recvfrom 操作时会阻塞</li>
+<li>异步I/O：不会阻塞</li>
+</ul>
+<h3 id="五大模型比较"><a href="#五大模型比较" class="headerlink" title="五大模型比较"></a>五大模型比较</h3><p>前四种I/O模型的主要区别再第一阶段，而第二阶段是一样的，将数据从内核态复制到应用进程中，应用进程处于阻塞。</p>
+<p> <img src="/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/1492928105791_3.png" alt="img" loading="lazy"> </p>
+<h2 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h2><h3 id="select、poll、epoll"><a href="#select、poll、epoll" class="headerlink" title="select、poll、epoll"></a>select、poll、epoll</h3><p>三者都是IO多路复用的机制。I/O多路复用通过一种机制，一个进程可以监视多个文件描述符。一旦描述符就绪（一般读就绪或写就绪），能够通知程序进行相应的读写操作。但select、poll、epoll本质上都是同步I/O，因为三者都需要在读就绪、写就绪后自己负责读写。即读写过程是阻塞的，而异步I/O无需自己负责读写，异步io的读写会负责把数据从内核拷贝到用户空间。</p>
+<p><strong>select</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">select</span> <span class="params">(<span class="type">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>select函数监视的文件描述符分为3类，分别是writefds、readfds和exceptfds。调用后select函数会阻塞，直到有描述符就绪(可读、可写或except)，或者超时（timeout指定等待时间，如立即返回设为null），函数才返回。当select函数返回后，可以通过遍历fdset，来找到就绪的描述符。</p>
+<p><strong>缺点</strong>：单个进程能够监视的文件描述符的数量存在最大限制，在linux上一般为1024。</p>
+<p><strong>poll</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">poll</span> <span class="params">(struct pollfd *fds, unsigned <span class="type">int</span> nfds, <span class="type">int</span> timeout)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>不同与select使用三个位图来表示三个fdset的方式，poll使用一个pollfd的指针实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct pollfd &#123;</span><br><span class="line">    <span class="type">int</span> fd; <span class="comment">/* file descriptor */</span></span><br><span class="line">    <span class="type">short</span> events; <span class="comment">/* requested events to watch */</span></span><br><span class="line">    <span class="type">short</span> revents; <span class="comment">/* returned events witnessed */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>pollfd结构包含了要监视的event和发生的event，不再使用select“参数-值”传递的方式。同时，pollfd并没有最大数量限制（但是数量过大后性能也会下降）。和select函数一样，poll返回后，需要轮询pollfd来获取就绪的描述符。</p>
+<blockquote>
+<p>从上面看，select和poll都需要在返回后，<code>通过遍历文件描述符来获取已经就绪的socket</code>。事实上，同时连接的大量客户端在一时刻可能只有很少的处于就绪状态，因此随着监视的描述符数量的增长，其效率也会线性下降。 </p>
+</blockquote>
+<p><strong>epoll</strong></p>
+<p>epoll是在2.6内核中提出，是之前的select和poll的增强版本。 相对于select和poll来说，epoll更加灵活，没有描述符限制。epoll使用一个文件描述符管理多个描述符，将用户关系的文件描述符的事件存放到内核的一个事件表中，这样在用户空间和内核空间的copy只需一次。 </p>
+<h3 id="epoll的操作过程"><a href="#epoll的操作过程" class="headerlink" title="epoll的操作过程"></a>epoll的操作过程</h3><p>epoll操作过程需要三个接口，分别如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">epoll_create</span><span class="params">(<span class="type">int</span> size)</span>；<span class="comment">//创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">epoll_ctl</span><span class="params">(<span class="type">int</span> epfd, <span class="type">int</span> op, <span class="type">int</span> fd, struct epoll_event *event)</span>；</span><br><span class="line"><span class="type">int</span> <span class="title function_">epoll_wait</span><span class="params">(<span class="type">int</span> epfd, struct epoll_event * events, <span class="type">int</span> maxevents, <span class="type">int</span> timeout)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.int epoll_create(int size)</strong></p>
+<p>创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大，这个参数不同于selcet()中的第一个参数，给出最大监听的fd+1的值，<strong>参数并不是限制了epoll所能监听的描述符最大个数，只是对内核初始分配内部数据结构的一个建议</strong>。当创建好epoll句柄后，它就会占用一个fd值，在linux下如果查看 /proc/进程id/fd/，是能够看到这个fd的，所以在使用完epoll后，必须调用close()关闭，否则可能导致fd被耗尽。</p>
+<p>*<em>2.int epoll _ctl(int epfd,int fd,struct epoll_event <em>event);</em></em></p>
+<p>函数是对指定描述符fd执行op操作。</p>
+<ul>
+<li><p>-epfd：是epoll_create()的返回值</p>
+</li>
+<li><p>-op：表示op操作，用三个宏来表示：添加EPOLL_CTL_AD，删除EPOLL_CTL_DEL，修改EPOLL_CTL_MOD。分别添加、删除和修改对fd的监听事件</p>
+</li>
+<li><p>-fd：是需要监听的fd（文件描述符）</p>
+</li>
+<li><p>-epoll_event：告诉内核需要监听什么事，struct epoll_event结构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">struct epoll_event &#123;</span><br><span class="line">  __uint32_t events;  <span class="comment">/* Epoll events */</span></span><br><span class="line">  epoll_data_t data;  <span class="comment">/* User data variable */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//events可以是以下几个宏的集合：</span></span><br><span class="line">EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；</span><br><span class="line">EPOLLOUT：表示对应的文件描述符可以写；</span><br><span class="line">EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；</span><br><span class="line">EPOLLERR：表示对应的文件描述符发生错误；</span><br><span class="line">EPOLLHUP：表示对应的文件描述符被挂断；</span><br><span class="line">EPOLLET： 将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)来说的。</span><br><span class="line">EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> <strong>3. int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);</strong> </p>
+<p> 等待epfd上的io事件，最多返回maxevents个事件。<br>参数events用来从内核得到事件的集合，maxevents告之内核这个events有多大，这个maxevents的值不能大于创建epoll_create()时的size，参数timeout是超时时间（毫秒，0会立即返回，-1将不确定，也有说法说是永久阻塞）。该函数返回需要处理的事件数目，如返回0表示已超时。 </p>
+<h3 id="IO多路复用工作模式和应用场景"><a href="#IO多路复用工作模式和应用场景" class="headerlink" title="IO多路复用工作模式和应用场景"></a>IO多路复用工作模式和应用场景</h3><p>epoll的描述符事件有两种触发模式： LT(level trigger)和 ET(edge trigger) 。</p>
+<p><strong>1.LT模式（水平触发）</strong></p>
+<p>当epoll_wait()检测到描述符事件到达时，将此事件通知进程，进程<strong>可以不立即处理该事件</strong>，下次调用epoll_wait()会<strong>再次通知</strong>进程。是默认的一种模式，并且同时支持blocking和No-blocking。在这种做法中， 内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的fd进行IO操作。如果你不作任何操作，内核还是会继续通知你的。 </p>
+<p><strong>2.ET模式（边缘触发）</strong></p>
+<p>和LT模式不同的是，通知后进程必须立即处理事件，下次再调用epoll_wait()不会在得到事件到达的通知。除非再有新的事件就绪</p>
+<p>很大程度减少了epoll事件被重复触发的次数，因此效率比LT高，支支持No-blocking，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死</p>
+<p><strong>二者区别</strong></p>
+<p><code>socket</code>可读事件的水平模式触发条件：</p>
+<ul>
+<li><code>socket</code>上无数据-&gt;<code>socket</code>上有数据</li>
+<li><code>socket</code>处于有数据状态</li>
+</ul>
+<p><code>socket</code>可读事件的边缘触发模式条件：</p>
+<ul>
+<li><code>socket</code>上无数据-&gt;<code>socket</code>上有数据</li>
+<li><code>socket</code>又来一次数据</li>
+</ul>
+<p><code>socket</code>可写事件的水平模式触发条件：</p>
+<ul>
+<li><code>socket</code>可写-&gt;<code>socket</code>不可写</li>
+<li><code>socket</code>不可写-&gt;<code>socket</code>可写</li>
+</ul>
+<p><code>socket</code>可写的边缘触发条件：</p>
+<ul>
+<li><code>socket</code>不可写-&gt;<code>socket</code>可写</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ol>
+<li><p>sekect场景</p>
+<p>select 的 timeout 参数精度为 1ns，而 poll 和 epoll 为 1ms，因此 select 更加适用于实时要求更高的场景，比如核反应堆的控制。</p>
+<p>select 可移植性更好，几乎被所有主流平台所支持。</p>
+</li>
+<li><p>poll场景</p>
+<p>poll 没有最大描述符数量的限制，如果平台支持并且对实时性要求不高，应该使用 poll 而不是 select。</p>
+<p>需要同时监控小于 1000 个描述符，就没有必要使用 epoll，因为这个应用场景下并不能体现 epoll 的优势。</p>
+<p>需要监控的描述符状态变化多，而且都是非常短暂的，也没有必要使用 epoll。因为 epoll 中的所有描述符都存储在内核中，造成每次需要对描述符的状态改变都需要通过 epoll_ctl() 进行系统调用，频繁系统调用降低效率。并且epoll 的描述符存储在内核，不容易调试</p>
+</li>
+<li><p>epoll场景</p>
+<p> 只需要运行在 Linux 平台上，并且有非常大量的描述符需要同时轮询，而且这些连接最好是长连接。 </p>
+</li>
+</ol>
+<h3 id="epoll总结"><a href="#epoll总结" class="headerlink" title="epoll总结"></a>epoll总结</h3><p>监视器的描述符数量不受限制</p>
+<p>io效率不会随着监视fd的数量而下降。epoll不同于select和poll轮询的方式，而是通过每个fd定义的回调函数来实现的，只有就绪的fd才会执行回调函数。</p>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/alipay.jpg"><img loading="lazy" src="/images/alipay.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/wechatpay.png"><img loading="lazy" src="/images/wechatpay.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>翔仔</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/" title="JavaIO模型">http://example.com/2022/08/17/JavaIO%E6%A8%A1%E5%9E%8B/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2022/08/19/java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F/" rel="prev" title="java自定义排序"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">java自定义排序</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/08/12/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="next" title="动态代理"><span class="post-nav-text">动态代理</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2022 </span><span class="with-love" id="animate" title="云游君的赞助者们"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 翔仔</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.4.2</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.8.11</span></div><div class="live-time"><span>本博客已运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2022-04-10T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div></body></html>
